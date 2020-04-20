@@ -14,9 +14,10 @@ import {UserListComponent} from './Users/user-list/user-list.component'
 import {UserAddComponent} from './Users/user-add/user-add.component'
 import {UserEditComponent} from './Users/user-edit/user-edit.component'
 import {AdminBookListComponent} from './Books/admin-book-list/admin-book-list.component'
+import { AppComponent } from './app.component';
 const routes: Routes = [
 
-  {path:'', component:MainLayoutComponent, pathMatch:'full'},
+  {path:'', component:AppComponent, pathMatch:'full'},
   {path:'admin/users',component:UserListComponent},
   {path:'admin/users/:id',component:UserEditComponent},
   {path:'admin/users/new',component:UserAddComponent},
