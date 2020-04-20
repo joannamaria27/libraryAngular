@@ -14,14 +14,19 @@ import { UserEditComponent } from './Users/user-edit/user-edit.component';
 import { AuthorListComponent } from './Authors/author-list/author-list.component';
 import { AuthorEditComponent } from './Authors/author-edit/author-edit.component';
 import { AuthorAddComponent } from './Authors/author-add/author-add.component';
+import {MainLayoutComponent} from './MainPage/main-layout/main-layout.component'
+import {AdminBookListComponent} from './Books/admin-book-list/admin-book-list.component'
+import {LoginComponent} from './Login/login/login.component'
+import {RegisterComponent} from './Login/register/register.component'
 import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookDetailsComponent,
-    FormsModule,
-    HttpClientModule,
+    AdminBookListComponent,
+    LoginComponent,
+    RegisterComponent,
     BookEditComponent,
     BookAddComponent,
     BookListComponent,
@@ -30,13 +35,14 @@ import { from } from 'rxjs';
     UserEditComponent,
     AuthorListComponent,
     AuthorEditComponent,
-    AuthorAddComponent
+    AuthorAddComponent,
+    MainLayoutComponent,
   ],
   imports: [
     HttpClientModule,
-    FormsModule,
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

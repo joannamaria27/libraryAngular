@@ -16,8 +16,7 @@ import {UserEditComponent} from './Users/user-edit/user-edit.component'
 import {AdminBookListComponent} from './Books/admin-book-list/admin-book-list.component'
 import { AppComponent } from './app.component';
 const routes: Routes = [
-
-  {path:'', component:AppComponent, pathMatch:'full'},
+  {path:'', component:MainLayoutComponent},
   {path:'admin/users',component:UserListComponent},
   {path:'admin/users/:id',component:UserEditComponent},
   {path:'admin/users/new',component:UserAddComponent},
@@ -31,8 +30,6 @@ const routes: Routes = [
   {path:'admin/authors',component:AuthorListComponent},
   {path:'admin/authors/:id',component:AuthorEditComponent},
   {path:'admin/authors/new',component:AuthorAddComponent},
-
-  
 ];
 
 @NgModule({
