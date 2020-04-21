@@ -19,21 +19,21 @@ const routes: Routes = [
   {path:'', component:MainLayoutComponent},
   {path:'admin/users',component:UserListComponent},
   {path:'admin/users/:id',component:UserEditComponent},
-  {path:'admin/users/new',component:UserAddComponent},
+  {path:'admin/users-new',component:UserAddComponent},
   {path:'books',component:BookListComponent},
   {path:'books/:id',component:BookDetailsComponent},
-  {path:'admin/books/new',component:BookAddComponent},
+  {path:'admin/books-new',component:BookAddComponent},
   {path:'admin/books',component:AdminBookListComponent},
   {path:'admin/books/:id',component:BookEditComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'admin/authors',component:AuthorListComponent},
   {path:'admin/authors/:id',component:AuthorEditComponent},
-  {path:'admin/authors/new',component:AuthorAddComponent},
+  {path:'admin/authors-new',component:AuthorAddComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule] 
 })
 export class AppRoutingModule { }

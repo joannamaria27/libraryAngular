@@ -19,6 +19,7 @@ import {AdminBookListComponent} from './Books/admin-book-list/admin-book-list.co
 import {LoginComponent} from './Login/login/login.component'
 import {RegisterComponent} from './Login/register/register.component'
 import { from } from 'rxjs';
+import { ConnectionService } from './Services/connection.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { from } from 'rxjs';
     AuthorListComponent,
     AuthorEditComponent,
     AuthorAddComponent,
-    MainLayoutComponent,
+    MainLayoutComponent, 
   ],
   imports: [
     HttpClientModule,
@@ -44,7 +45,7 @@ import { from } from 'rxjs';
     FormsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [ConnectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

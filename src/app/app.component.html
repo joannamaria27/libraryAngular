@@ -1,12 +1,18 @@
 <div>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Navbar jakis</a>
+    <a href="#" class="navbar-brand">Home</a>
     <div class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a routerLink="" class="nav-link">juz dziala</a>
+        <a routerLink="books" class="nav-link">Ksiazki</a>
       </li>
       <li class="nav-item">
-        <a routerLink="" class="nav-link">Gdzies tam</a>
+        <a routerLink="admin/books" class="nav-link">Admin do ukrycia</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="admin/authors" class="nav-link">Autorzy dla admina</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="admin/users" class="nav-link">Userzy dla admina</a>
       </li>
     </div>
   </nav>
@@ -15,6 +21,6 @@
     <router-outlet></router-outlet>
   </div>
   <footer>
-   Futerek
+   Futerek trzeba go tylko ustawic
     </footer>
 </div>
