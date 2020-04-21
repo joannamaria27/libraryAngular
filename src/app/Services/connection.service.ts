@@ -5,17 +5,17 @@ import { LibraryUser } from '../Model/LibraryUser';
 import { Author } from '../Model/Author';
 import {HttpHeaders} from '@angular/common/http'
 
-const baseUrl='api/http://localhost:8085';
+const baseUrl='/api';
 
 const httpOptions={
   headers:new HttpHeaders(
     {
       'Access-Control-Allow-Origin':'*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Origin':'http://localhost:8085',
-      'Access-Control-Request-Headers':' Accept, X-Requested-With',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, token',
+      //'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      //'Origin':'http://localhost:8085',
+      //'Access-Control-Request-Headers':' Accept, X-Requested-With',
+      //'Access-Control-Allow-Credentials': 'true',
+      //'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, token',
     }
   )
 }
