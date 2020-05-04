@@ -36,7 +36,7 @@ export class AuthorAddComponent implements OnInit {
       this.connection.addAuthor(this.NewAuthor).subscribe(
         res=>{
           console.log("Author added");
-          this.router.navigate(['authors/list']);
+          this.router.navigate(['/admin/authors']);
         },
         err=>
         {

@@ -20,6 +20,7 @@ import {LoginComponent} from './Login/login/login.component'
 import {RegisterComponent} from './Login/register/register.component'
 import { from } from 'rxjs';
 import { ConnectionService } from './Services/connection.service';
+import { AuthorListElementComponent } from './Authors/author-list-element/author-list-element.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ConnectionService } from './Services/connection.service';
     AuthorListComponent,
     AuthorEditComponent,
     AuthorAddComponent,
-    MainLayoutComponent, 
+    MainLayoutComponent,
+    AuthorListElementComponent, 
   ],
   imports: [
     HttpClientModule,
