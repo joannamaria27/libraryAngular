@@ -3,7 +3,7 @@ import { Author } from 'src/app/Model/Author';
 import { Book } from 'src/app/Model/Book';
 import { ConnectionService } from 'src/app/Services/connection.service';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common'
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-author-add',
   templateUrl: './author-add.component.html',

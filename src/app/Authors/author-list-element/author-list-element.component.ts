@@ -16,13 +16,22 @@ export class AuthorListElementComponent implements OnInit {
     ) { }
     BookQuantity:number;
   ngOnInit() {
-    this.BookQuantity=this.ThisAuthor.Books.length;
+    if(this.ThisAuthor.Books!=null)
+    {
+      this.BookQuantity=this.ThisAuthor.Books.length;
+    }
+    else
+    {
+      this.ThisAuthor.Books=[];
+      this.BookQuantity=0;
+    }
+    //this.BookQuantity=this.ThisAuthor.Books.length;
   }
   
   @Input() ThisAuthor:Author;  
 
   DetailsButtonClick(){
-    this.router.navigate([`admin/authors/:${this.ThisAuthor.id}`]);
+    this.router.navigate([`admin/authors/${this.ThisAuthor.id}`]);
   }
   DeleteButtonClick(){
     this.connection.deleteAuthorById(this.ThisAuthor.id).subscribe(
