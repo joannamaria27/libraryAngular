@@ -1,1 +1,13 @@
-<p>author-list-element works!</p>
+<div class="row border-bottom m-1">
+    <div class="col-3 text-center">
+        <h6>{{ThisAuthor.fullName}}</h6>
+    </div>
+    <div class="col-3 text-center">
+        <h6>{{BookQuantity}}</h6>
+    </div>
+    <div class="col-3 text-center">
+        <button class="btn btn-dark" (click)="DetailsButtonClick()">Details/Edit</button>
+        <button class="btn btn-danger ml-1" (click)="DeleteButtonClick()">Delete</button>
+    </div>
+
+</div>

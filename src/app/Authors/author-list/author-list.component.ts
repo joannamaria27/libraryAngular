@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConnectionService } from 'src/app/Services/connection.service';
 import { Router } from '@angular/router';
 import { Author } from 'src/app/Model/Author';
+import {Location} from '@angular/common'
 @Component({
   selector: 'app-author-list',
   templateUrl: './author-list.component.html',
@@ -17,7 +18,7 @@ export class AuthorListComponent implements OnInit {
   constructor(
     private connection:ConnectionService,
     private router:Router,
-    private location:Location,) { }
+   ) { }
 
   ngOnInit() {
     this.connection.getAllAuthors().subscribe(
@@ -33,7 +34,7 @@ export class AuthorListComponent implements OnInit {
       }
     )
   }
-  AddAuthorButtonnClick(){
+  AddAuthorButtonClick(){
     this.router.navigate(['admin/authors-new']);
   }
 
