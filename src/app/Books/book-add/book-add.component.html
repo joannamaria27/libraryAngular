@@ -1,1 +1,29 @@
-<p>book-add works!</p>
+<div class="container min-vh-100">
+  <div class="row">
+    <h4 class="col-auto">Add Book</h4>
+    <button class="btn btn-primary ml-1" (click)="BackButtonClick()">
+      <i class="fas fa-long-arrow-alt-left"></i> Back
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="form-group">
+        <label>Book's title:</label>
+        <input type="text" class="form-control" [(ngModel)]="NewBook.title" name="title" />
+        <label>Book's authors: </label>
+        <select multiple class="form-control " name="a" ngModel size="3" [(ngModel)]="NewBook.Authors">
+          <option *ngFor="let author of AuthorsAll" [ngValue]="author">
+            {{ author.fullName }}
+          </option>
+        </select>
+        <div>Selected authors:
+          <i *ngFor="let selection of NewBook.Authors">{{selection.fullName + ", "}}</i>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary" (click)="AddBookButtonClick()">Add Book <i
+            class="far fa-plus-square"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
