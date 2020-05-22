@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Book } from 'src/app/Model/Book';
 import { ConnectionService } from 'src/app/Services/connection.service';
 import { Router } from '@angular/router';
-import { Book } from 'src/app/Model/Book';
 
 @Component({
   selector: 'app-book-list',
@@ -24,7 +24,4 @@ export class BookListComponent implements OnInit {
       }, err => { console.log(err); })
   }
 
-  AddBookButtonClick() {
-    this.router.navigate(['admin/books-new']);
-  }
 }
