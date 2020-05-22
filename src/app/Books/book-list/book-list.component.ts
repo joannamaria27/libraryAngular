@@ -9,22 +9,22 @@ import { Book } from 'src/app/Model/Book';
   styleUrls: ['./book-list.component.css']
 })
 export class BookListComponent implements OnInit {
-  BooksEmpty: boolean=true;
-  BooksCollection: Book[]=[];
+  BooksEmpty: boolean = true;
+  BooksCollection: Book[] = [];
 
-  constructor(private connection:ConnectionService, private router:Router,) { }
-    
-  ngOnInit() {this.connection.getAllBooks().subscribe(
-    res=>{
-      this.BooksCollection=[...res];
-      if(this.BooksCollection.length!=0)
-      {
-        this.BooksEmpty=false;
-      }
-    },err=>{console.log(err);})
+  constructor(private connection: ConnectionService, private router: Router, ) { }
+
+  ngOnInit() {
+    this.connection.getAllBooks().subscribe(
+      res => {
+        this.BooksCollection = [...res];
+        if (this.BooksCollection.length != 0) {
+          this.BooksEmpty = false;
+        }
+      }, err => { console.log(err); })
   }
 
-  AddBookButtonClick(){
+  AddBookButtonClick() {
     this.router.navigate(['admin/books-new']);
   }
 }

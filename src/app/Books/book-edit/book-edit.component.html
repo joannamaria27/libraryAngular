@@ -20,8 +20,8 @@
                 <div>selected authors:
                     <p *ngFor="let selection of ThisBook.Authors">{{selection.fullName}}</p>
                 </div>
-                <!-- <input *ngFor="let author in OriginalBook.Authors" type="text" class="form-control"
-                    [(ngModel)]="ThisBook.author" name="autors" /> -->
+                <label>Book's date release:</label>
+                <input type="date" class="form-control" [(ngModel)]="ThisBook.releaseDate" name="dater" />
             </div>
             <div class="text-center">
                 <button class="btn btn-primary" (click)="UpdateBookButtonClick()">Update book

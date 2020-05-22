@@ -53,7 +53,7 @@ export class BookEditComponent implements OnInit {
   }
 
   UpdateBookButtonClick() {
-    if (this.ThisBook.title == this.OriginalBook.title) {
+    if ((this.ThisBook.title == this.OriginalBook.title) && (this.ThisBook.Authors == this.OriginalBook.Authors) && (this.ThisBook.releaseDate == this.OriginalBook.releaseDate)) {
       this.location.back();
     }
     else {

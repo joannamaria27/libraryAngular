@@ -9,7 +9,7 @@ import { Book } from 'src/app/Model/Book';
   styleUrls: ['./admin-book-list.component.css']
 })
 export class AdminBookListComponent implements OnInit {
-  BAuthors: string;
+  BAuthors: string = "";
 
   constructor(private connection: ConnectionService, private router: Router, ) { }
 
@@ -18,7 +18,7 @@ export class AdminBookListComponent implements OnInit {
   ngOnInit() {
     if (this.ThisBook.Authors != null) {
       this.ThisBook.Authors.forEach(element => {
-        this.BAuthors = element.fullName;
+        this.BAuthors += element.fullName + ", ";
       });
     }
     else {
