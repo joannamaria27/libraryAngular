@@ -34,8 +34,7 @@ export class BookEditComponent implements OnInit {
               this.ThisBook = res;
               this.OriginalBook = { id: undefined, title: res.title, Authors: res.Authors, CurrentOwner: undefined, releaseDate: res.releaseDate };
             }, err => {
-              console.log(err);
-              this.router.navigate(['admin/books-new']);
+              console.log(err); this.router.navigate(['admin/books-new']);
             })
         }
       })
@@ -45,15 +44,11 @@ export class BookEditComponent implements OnInit {
         if (this.AuthorsAll.length != 0) {
           this.AuthorsEmpty = false;
         }
-      },
-      err => {
-        console.log(err);
-      }
-    )
+      }, err => { console.log(err); })
   }
 
   UpdateBookButtonClick() {
-    if (this.ThisBook.title == this.OriginalBook.title) {
+    if ((this.ThisBook.title == this.OriginalBook.title) && (this.ThisBook.Authors == this.OriginalBook.Authors) && (this.ThisBook.releaseDate == this.OriginalBook.releaseDate)) {
       this.location.back();
     }
     else {

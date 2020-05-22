@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Book } from 'src/app/Model/Book';
 import { ConnectionService } from 'src/app/Services/connection.service';
 import { Router } from '@angular/router';
-import { Book } from 'src/app/Model/Book';
 
 @Component({
   selector: 'app-admin-book-list',
@@ -9,32 +9,29 @@ import { Book } from 'src/app/Model/Book';
   styleUrls: ['./admin-book-list.component.css']
 })
 export class AdminBookListComponent implements OnInit {
-  BAuthors: string;
+  BooksEmpty: boolean = true;
+  BooksCollection: Book[] = [];
+
+  SearchText: string;
+  CanClear: boolean = false;
+  DisplayedBooks: Book[] = [];
 
   constructor(private connection: ConnectionService, private router: Router, ) { }
 
-  @Input() ThisBook: Book;
-
   ngOnInit() {
-    if (this.ThisBook.Authors != null) {
-      this.ThisBook.Authors.forEach(element => {
-        this.BAuthors = element.fullName;
-      });
-    }
-    else {
-      this.ThisBook.Authors = [];
-      this.BAuthors = "brak";
-    }
+    this.connection.getAllBooks().subscribe(
+      res => {
+        this.BooksCollection = [...res];
+        if (this.BooksCollection.length != 0) {
+          this.BooksEmpty = false;
+        }
+      }, err => { console.log(err); })
   }
 
-  DetailsButtonClick() {
-    this.router.navigate([`admin/books/${this.ThisBook.id}`]);
+  AddBookButtonClick() {
+    this.router.navigate(['admin/books-new']);
   }
-  DeleteButtonClick() {
-    this.connection.deleteBookById(this.ThisBook.id).subscribe(
-      res => {
-        window.location.reload();
-        console.log("Book deleted succesfully");
-      }, err => { console.log("Cannot delete book reason: " + err); })
-  }
+
 }
+
+

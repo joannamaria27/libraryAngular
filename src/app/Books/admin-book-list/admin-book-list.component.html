@@ -1,13 +1,24 @@
-<div class="row border-bottom m-1">
-    <div class="col-3 text-center">
-        <h6>{{ThisBook.title}}</h6>
-    </div>
-    <div class="col-3 text-center">
-        <h6>{{BAuthors}}</h6>
-    </div>
-    <div class="col-3 text-center">
-        <button class="btn btn-dark" (click)="DetailsButtonClick()">Details/Edit</button>
-        <button class="btn btn-danger ml-1" (click)="DeleteButtonClick()">Delete</button>
+<div class="container">
+    <div class="row m-1">
+        <h4 class="col-auto">Books list</h4>
+        <button class="btn btn-primary mr-1 col-auto" (click)="AddBookButtonClick()">Add Book
+            <i class="far fa-plus-square"></i>
+        </button>
     </div>
 
+    <div class="row mt-1 border-bottom border-secondary">
+        <div class="text-center col-3 Properties">
+            <h6>Title</h6>
+        </div>
+        <div class="text-center col-3 Properties">
+            <h6>Authors</h6>
+        </div>
+        <div class="text-center col-3 Properties">
+            <h6>Date release</h6>
+        </div>
+    </div>
+    <div class="text-center" [hidden]="!BooksEmpty">
+        <h4>No books to display</h4>
+    </div>
+    <app-book-list-element *ngFor="let book of BooksCollection" [ThisBook]="book"> </app-book-list-element>
 </div>

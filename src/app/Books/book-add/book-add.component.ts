@@ -40,11 +40,14 @@ export class BookAddComponent implements OnInit {
     else if (this.NewBook.Authors == null) {
       console.log("Book's authors is empty");
     }
+    else if (this.NewBook.releaseDate == null) {
+      console.log("Book's data is empty");
+    }
     else {
       this.connection.addBook(this.NewBook).subscribe(
         res => {
           console.log("Books added");
-          this.router.navigate(['/admin/books']);
+          this.router.navigate(['admin/books']);
         },
         err => { console.log(err); })
     }

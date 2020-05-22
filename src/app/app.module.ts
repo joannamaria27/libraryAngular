@@ -21,6 +21,8 @@ import {RegisterComponent} from './Login/register/register.component'
 import { from } from 'rxjs';
 import { ConnectionService } from './Services/connection.service';
 import { AuthorListElementComponent } from './Authors/author-list-element/author-list-element.component';
+import { BookListElementComponent } from './Books/book-list-element/book-list-element.component';
+import { BookRentElementComponent } from './Books/book-rent-element/book-rent-element.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { AuthorListElementComponent } from './Authors/author-list-element/author
     AuthorEditComponent,
     AuthorAddComponent,
     MainLayoutComponent,
-    AuthorListElementComponent, 
+    AuthorListElementComponent,
+    BookListElementComponent,
+    BookRentElementComponent, 
   ],
   imports: [
     HttpClientModule,

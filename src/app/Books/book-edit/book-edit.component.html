@@ -2,8 +2,8 @@
     <div class="row">
         <h4 class="col-auto">Edit Author</h4>
         <button class="btn btn-primary ml-1" (click)="BackButtonClick()">
-            <i class="fas fa-long-arrow-alt-left"></i>
-            Back</button>
+            <i class="fas fa-long-arrow-alt-left"></i> Back
+        </button>
     </div>
     <div class="row">
         <div class="col-6 offset-3">
@@ -16,16 +16,16 @@
                         {{ author.fullName }}
                     </option>
                 </select>
-
-                <div>selected authors:
-                    <p *ngFor="let selection of ThisBook.Authors">{{selection.fullName}}</p>
+                <div>Selected authors:
+                    <i *ngFor="let selection of ThisBook.Authors">{{selection.fullName + ", "}}</i>
                 </div>
-                <!-- <input *ngFor="let author in OriginalBook.Authors" type="text" class="form-control"
-                    [(ngModel)]="ThisBook.author" name="autors" /> -->
+                <label>Book's date release:</label>
+                <input type="date" class="form-control" [(ngModel)]="ThisBook.releaseDate" name="dater" />
             </div>
             <div class="text-center">
                 <button class="btn btn-primary" (click)="UpdateBookButtonClick()">Update book
-                    <i class="far fa-plus-square"></i></button>
+                    <i class="far fa-plus-square"></i>
+                </button>
             </div>
         </div>
     </div>
