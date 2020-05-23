@@ -1,1 +1,25 @@
-<p>user-list works!</p>
+<div class="container">
+    <div class="row m-1">
+        <h4 class="col-auto">User list</h4>
+        <button class="btn btn-primary mr-1 col-auto" (click)="AddUserButtonClick()">Add User
+            <i class="far fa-plus-square"></i>
+        </button>
+    </div>
+
+    <div class="row mt-1 border-bottom border-secondary">
+        <div class="text-center col-3 Properties">
+            <h6>Username</h6>
+        </div>
+        <div class="text-center col-3 Properties">
+            <h6>Email</h6>
+        </div>
+        <div class="text-center col-3 Properties">
+            <h6>Number of books</h6>
+        </div>
+    </div>
+    <div class="text-center" [hidden]="!UsersEmpty">
+        <h4>No users to display</h4>
+    </div>
+    <app-user-list-element *ngFor="let user of UsersCollection" [ThisUser]="user">
+    </app-user-list-element>
+</div>
