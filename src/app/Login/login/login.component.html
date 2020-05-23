@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div class="container min-vh-100">
+    <div class="row">
+        <h4 class="col-auto">Login:</h4>
+        <button class="btn btn-primary ml-1" (click)="BackButtonClick()">
+            <i class="fas fa-long-arrow-alt-left"></i> Back
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="form-group">
+                <label>user name:</label>
+                <input type="text" class="form-control" [(ngModel)]="ThisUser.username" name="username" />
+                <label>password: </label>
+                <!-- nie jestem pewna tutaj -->
+                <input type="password" class="form-control" [(ngModel)]="ThisUser.password" name="password" />
+            </div>
+            <div class="text-center ">
+                <button class="btn btn-primary" (click)="Enter()">Enter <i class="far"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
