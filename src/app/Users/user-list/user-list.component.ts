@@ -26,4 +26,30 @@ export class UserListComponent implements OnInit {
   AddUserButtonClick() {
     this.router.navigate(['admin/users-new']);
   }
+
+  DisplayedUsers: LibraryUser[] = [];
+  SearchText: string;
+  CanClear: boolean = false;
+
+  SearchClearButtonClick() {
+    this.CanClear = false;
+    this.SearchText = "";
+    this.DisplayedUsers = [...this.UsersCollection];
+    if (this.UsersCollection.length != 0) {
+      this.UsersEmpty = false;
+    }
+  }
+
+  SearchButtonClick() {
+    this.CanClear = true;
+    this.DisplayedUsers = [...this.UsersCollection];
+    this.UsersEmpty = false;
+    this.DisplayedUsers = this.DisplayedUsers.filter((element) => {
+      return element.username.toLowerCase().includes(this.SearchText.toLowerCase());
+    });
+    if (this.DisplayedUsers.length != 0) {
+      this.UsersEmpty = false;
+    }
+  }
+
 }

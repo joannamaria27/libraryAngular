@@ -13,11 +13,12 @@
                 <label>email:</label>
                 <input type="email" class="form-control" [(ngModel)]="NewUser.email" name="email" />
                 <label>password: </label>
-                <input type="password" class="form-control" name="password" />
-                <!-- jeszcze generacja hasła czy cos -->
+                <div class="alert alert-info" role="alert">
+                    {{randomstring}}
+                </div>
             </div>
             <div class="text-center ">
-                <button class="btn btn-primary" (click)="Enter()">Enter <i class="far"></i></button>
+                <button class="btn btn-primary" (click)="AddBookButtonClick()">Enter <i class="far"></i></button>
             </div>
         </div>
     </div>

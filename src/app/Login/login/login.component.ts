@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(private connection: ConnectionService, private router: Router, private location: Location,
     private activatedRoute: ActivatedRoute, ) { }
 
-  ThisUser: LibraryUser = { Username: "", id: undefined, RentedBooks: [], Email: "" };
+  ThisUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
 
   ngOnInit() {
   }

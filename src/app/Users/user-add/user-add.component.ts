@@ -10,10 +10,15 @@ import { Location } from '@angular/common';
   styleUrls: ['./user-add.component.css']
 })
 export class UserAddComponent implements OnInit {
-  NewUser: LibraryUser = { Username: "", id: undefined, RentedBooks: [], Email: "" };
+  randomstring = Math.random().toString(36).slice(-8);
+
+  NewUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
 
   constructor(private connection: ConnectionService, private router: Router, private location: Location,
     private activatedRoute: ActivatedRoute, ) { }
+
+
+
 
   ngOnInit() {
   }
@@ -22,5 +27,20 @@ export class UserAddComponent implements OnInit {
   BackButtonClick() {
     this.location.back();
   }
+
+  AddBookButtonClick() {
+    if (this.NewUser.username == null) {
+      console.log("User's username is empty");
+    } else if (this.NewUser.email == null) {
+      console.log("User's email is empty");
+    } else {
+      this.connection.addUser(this.NewUser).subscribe(
+        res => {
+          console.log("Users added");
+          this.router.navigate(['admin/users']);
+        }, err => { console.log(err); })
+    }
+  }
+
 
 }

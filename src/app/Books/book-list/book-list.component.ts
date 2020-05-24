@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/Model/Book';
 import { ConnectionService } from 'src/app/Services/connection.service';
 import { Router } from '@angular/router';
+import { Author } from 'src/app/Model/Author';
 
 @Component({
   selector: 'app-book-list',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 export class BookListComponent implements OnInit {
   BooksEmpty: boolean = true;
   BooksCollection: Book[] = [];
+  AuthorsAll: Author[] = [];
+  AuthorsEmpty: boolean = true;
 
   constructor(private connection: ConnectionService, private router: Router, ) { }
 
@@ -22,6 +25,40 @@ export class BookListComponent implements OnInit {
           this.BooksEmpty = false;
         }
       }, err => { console.log(err); })
+    this.connection.getAllAuthors().subscribe(
+      res => {
+        this.AuthorsAll = [...res];
+        if (this.AuthorsAll.length != 0) {
+          this.AuthorsEmpty = false;
+        }
+      }, err => { console.log(err); })
   }
+
+  DisplayedBooks: Book[] = [];
+  SearchText: string;
+  CanClear: boolean = false;
+
+
+  SearchClearButtonClick() {
+    this.CanClear = false;
+    this.SearchText = "";
+    this.DisplayedBooks = [...this.BooksCollection];
+    if (this.BooksCollection.length != 0) {
+      this.BooksEmpty = false;
+    }
+  }
+
+  SearchButtonClick() {
+    this.CanClear = true;
+    this.DisplayedBooks = [...this.BooksCollection];
+    this.BooksEmpty = false;
+    this.DisplayedBooks = this.DisplayedBooks.filter((element) => {
+      return element.title.toLowerCase().includes(this.SearchText.toLowerCase()) || element.releaseDate.toLowerCase().includes(this.SearchText.toLowerCase());
+    });
+    if (this.DisplayedBooks.length != 0) {
+      this.BooksEmpty = false;
+    }
+  }
+
 
 }
