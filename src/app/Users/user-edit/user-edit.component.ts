@@ -15,8 +15,8 @@ export class UserEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute, ) { }
 
   UserId: number;
-  ThisUser: LibraryUser = { Username: "", id: undefined, RentedBooks: [], Email: "" };
-  OrginalUser: LibraryUser = { Username: "", id: undefined, RentedBooks: [], Email: "" };
+  ThisUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
+  OrginalUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
 
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class UserEditComponent implements OnInit {
           this.connection.getUserById(this.UserId).subscribe(
             res => {
               this.ThisUser = res;
-              this.OrginalUser = { id: undefined, Username: res.Username, RentedBooks: undefined, Email: res.Email };
+              this.OrginalUser = { id: undefined, username: res.username, RentedBooks: undefined, email: res.email };
             }, err => { console.log(err); this.router.navigate(['admin/users-new']); }
           )
         }
@@ -38,9 +38,9 @@ export class UserEditComponent implements OnInit {
   }
 
 
-  //dodać inne pola do edycji
+  //dodać inne pola do edycji?
   UpdateBookButtonClick() {
-    if ((this.ThisUser.Email == this.OrginalUser.Email)) {
+    if ((this.ThisUser.email == this.OrginalUser.email) && (this.ThisUser.username == this.OrginalUser.username)) {
       this.location.back();
     }
     else {
