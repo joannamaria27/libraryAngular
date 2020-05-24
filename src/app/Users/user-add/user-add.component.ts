@@ -10,10 +10,15 @@ import { Location } from '@angular/common';
   styleUrls: ['./user-add.component.css']
 })
 export class UserAddComponent implements OnInit {
+  randomstring = Math.random().toString(36).slice(-8);
+
   NewUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
 
   constructor(private connection: ConnectionService, private router: Router, private location: Location,
     private activatedRoute: ActivatedRoute, ) { }
+
+
+
 
   ngOnInit() {
   }
