@@ -12,10 +12,6 @@ export class AdminBookListComponent implements OnInit {
   BooksEmpty: boolean = true;
   BooksCollection: Book[] = [];
 
-  SearchText: string;
-  CanClear: boolean = false;
-  DisplayedBooks: Book[] = [];
-
   constructor(private connection: ConnectionService, private router: Router, ) { }
 
   ngOnInit() {
@@ -30,6 +26,32 @@ export class AdminBookListComponent implements OnInit {
 
   AddBookButtonClick() {
     this.router.navigate(['admin/books-new']);
+  }
+
+  DisplayedBooks: Book[] = [];
+  SearchText: string;
+  CanClear: boolean = false;
+
+
+  SearchClearButtonClick() {
+    this.CanClear = false;
+    this.SearchText = "";
+    this.DisplayedBooks = [...this.BooksCollection];
+    if (this.BooksCollection.length != 0) {
+      this.BooksEmpty = false;
+    }
+  }
+
+  SearchButtonClick() {
+    this.CanClear = true;
+    this.DisplayedBooks = [...this.BooksCollection];
+    this.BooksEmpty = false;
+    this.DisplayedBooks = this.DisplayedBooks.filter((element) => {
+      return element.title.toLowerCase().includes(this.SearchText.toLowerCase()) || element.releaseDate.toLowerCase().includes(this.SearchText.toLowerCase());
+    });
+    if (this.DisplayedBooks.length != 0) {
+      this.BooksEmpty = false;
+    }
   }
 
 }

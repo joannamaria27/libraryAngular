@@ -5,7 +5,16 @@
             <i class="far fa-plus-square"></i>
         </button>
     </div>
-
+    <div class="row m-1">
+        <form class="col row">
+            <h6 class="col-auto">Search title or date release</h6>
+            <input class="form-control col-2" placeholder="Phrase" [(ngModel)]="SearchText" name="SearchText" />
+            <button class="btn btn-primary col-auto" (click)="SearchButtonClick()" [disabled]="!SearchText">Search <i
+                    class="fas fa-search"></i></button>
+            <button class="btn btn-danger ml-1" [hidden]="!SearchText|| CanClear"
+                (click)="SearchClearButtonClick()">X</button>
+        </form>
+    </div>
     <div class="row mt-1 border-bottom border-secondary">
         <div class="text-center col-3 Properties">
             <h6>Title</h6>
@@ -20,5 +29,8 @@
     <div class="text-center" [hidden]="!BooksEmpty">
         <h4>No books to display</h4>
     </div>
-    <app-book-list-element *ngFor="let book of BooksCollection" [ThisBook]="book"> </app-book-list-element>
+    <app-book-rent-element *ngFor="let book of BooksCollection" [hidden]="SearchText" [ThisBook]=" book">
+    </app-book-rent-element>
+    <app-book-rent-element *ngFor="let book of DisplayedBooks" [hidden]="!SearchText" [ThisBook]="book">
+    </app-book-rent-element>
 </div>
