@@ -29,8 +29,8 @@
     <div class="text-center" [hidden]="!BooksEmpty">
         <h4>No books to display</h4>
     </div>
-    <app-book-rent-element *ngFor="let book of BooksCollection" [hidden]="SearchText" [ThisBook]=" book">
-    </app-book-rent-element>
-    <app-book-rent-element *ngFor="let book of DisplayedBooks" [hidden]="!SearchText" [ThisBook]="book">
-    </app-book-rent-element>
+    <app-book-list-element *ngFor="let book of BooksCollection" [hidden]="SearchText" [ThisBook]=" book">
+    </app-book-list-element>
+    <app-book-list-element *ngFor="let book of DisplayedBooks" [hidden]="!SearchText" [ThisBook]="book">
+    </app-book-list-element>
 </div>

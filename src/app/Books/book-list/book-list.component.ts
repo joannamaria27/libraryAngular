@@ -17,8 +17,11 @@ export class BookListComponent implements OnInit {
 
   constructor(private connection: ConnectionService, private router: Router, ) { }
 
+  BooksCollectionUser: Book[] = [];
+  BooksCollectionUserEmpty: boolean = false;
 
   ngOnInit() {
+
     this.connection.getAllBooks().subscribe(
       res => {
         this.BooksCollection = [...res];

@@ -9,6 +9,7 @@
         <h6>{{ThisBook.releaseDate}}</h6>
     </div>
     <div class="col-3 text-center">
-        <button class="btn btn-dark" (click)="RentButtonClick()">Rent</button>
+        <button class="btn btn-dark" (click)="RentButtonClick()" [hidden]="Owner">Rent</button>
+        <button class="btn btn-dark" (click)="ReturnButtonClick()" [hidden]="!Owner">Return</button>
     </div>
 </div>

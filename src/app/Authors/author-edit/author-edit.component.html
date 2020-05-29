@@ -14,10 +14,8 @@
                 <button class="btn btn-primary" (click)="UpdateAuthorButtonClick()">Update author <i
                         class="far fa-plus-square"></i></button>
             </div>
-            <div class="text-center" [hidden]="!BooksEmpty">
-                <h4>No books to display</h4>
-            </div>
-            <div [hidden]="BooksEmpty" class="container">
+
+            <div class="container">
                 <div class="row m-1">
                     <h4 class="col-auto">Books list</h4>
                 </div>
@@ -29,7 +27,10 @@
                         <h6>Date release</h6>
                     </div>
                 </div>
-                <div *ngFor="let book of OriginalAuthor.Books" class="row border-bottom ">
+                <div class="text-center" [hidden]="!BooksEmpty">
+                    <h4>No books to display</h4>
+                </div>
+                <div [hidden]="BooksEmpty" *ngFor="let book of OriginalAuthor.Books" class="row border-bottom ">
                     <div class="col-3 text-center">
                         <h6>{{book.title}}</h6>
                     </div>
