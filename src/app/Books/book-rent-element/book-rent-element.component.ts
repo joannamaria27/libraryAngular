@@ -20,6 +20,12 @@ export class BookRentElementComponent implements OnInit {
   Owner: boolean = false;
 
   ngOnInit() {
+    if (this.ThisBook.CurrentOwner != null) {
+      this.Owner = true;
+    } else {
+      this.Owner = false;
+    }
+
     if (this.ThisBook.Authors != null) {
       this.ThisBook.Authors.forEach(element => {
         this.BAuthors += element.fullName + ", ";
@@ -28,11 +34,7 @@ export class BookRentElementComponent implements OnInit {
       this.ThisBook.Authors = [];
       this.BAuthors = "brak";
     }
-    if (this.ThisBook.CurrentOwner != null) {
-      this.Owner = true;
-    } else {
-      this.Owner = false;
-    }
+
   }
 
   RentButtonClick() {

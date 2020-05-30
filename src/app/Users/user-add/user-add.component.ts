@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 export class UserAddComponent implements OnInit {
   randomstring = Math.random().toString(36).slice(-8);
 
-  NewUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
+  NewUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "", admin: false, password: this.randomstring };
 
   constructor(private connection: ConnectionService, private router: Router, private location: Location,
     private activatedRoute: ActivatedRoute, ) { }

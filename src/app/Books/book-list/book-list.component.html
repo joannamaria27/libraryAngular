@@ -13,11 +13,11 @@
             <h6>Date release</h6>
         </div>
     </div>
-    <div class="text-center" [hidden]="!BooksEmpty">
+    <div class="text-center" [hidden]="BooksEmpty">
         <h4>No books to display</h4>
     </div>
-    <div *ngFor="let book of BooksCollection">
-        <!-- <div *ngIf="book.CurrentOwner==ThisUser"> -->
+    <div [hidden]="!BooksEmpty" *ngFor="let book of BooksCollection.CurrentOwner">
+        <!-- <div *ngIf="book==ThisUser"> -->
         <app-book-rent-element [ThisBook]="book">
         </app-book-rent-element>
         <!-- </div> -->

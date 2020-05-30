@@ -9,6 +9,7 @@ import { LibraryUser } from 'src/app/Model/LibraryUser';
   styleUrls: ['./user-list-element.component.css']
 })
 export class UserListElementComponent implements OnInit {
+
   @Input() ThisUser: LibraryUser;
 
   Quantity: number;

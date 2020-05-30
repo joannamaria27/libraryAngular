@@ -5,4 +5,6 @@ export class LibraryUser {
     username: string;
     email: string;
     RentedBooks: Book[];
+    admin: boolean;
+    password: string;
 }
