@@ -32,7 +32,7 @@ export class BookEditComponent implements OnInit {
           this.connection.getBookById(this.BookId).subscribe(
             res => {
               this.ThisBook = res;
-              this.OriginalBook = { id: undefined, title: res.title, Authors: res.Authors, CurrentOwner: undefined, releaseDate: res.releaseDate };
+              this.OriginalBook = { id: undefined, title: res.title, Authors: res.Authors, CurrentOwner: res.CurrentOwner, releaseDate: res.releaseDate };
             }, err => {
               console.log(err); this.router.navigate(['admin/books-new']);
             })

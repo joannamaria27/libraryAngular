@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Book } from 'src/app/Model/Book';
 import { ConnectionService } from 'src/app/Services/connection.service';
 import { Router } from '@angular/router';
@@ -17,19 +17,16 @@ export class BookListComponent implements OnInit {
 
   constructor(private connection: ConnectionService, private router: Router, ) { }
 
+  BooksCollectionUser: Book[] = [];
+  BooksCollectionUserEmpty: boolean = false;
+
   ngOnInit() {
+
     this.connection.getAllBooks().subscribe(
       res => {
         this.BooksCollection = [...res];
         if (this.BooksCollection.length != 0) {
           this.BooksEmpty = false;
-        }
-      }, err => { console.log(err); })
-    this.connection.getAllAuthors().subscribe(
-      res => {
-        this.AuthorsAll = [...res];
-        if (this.AuthorsAll.length != 0) {
-          this.AuthorsEmpty = false;
         }
       }, err => { console.log(err); })
   }

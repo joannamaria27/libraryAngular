@@ -15,9 +15,9 @@ export class UserEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute, ) { }
 
   UserId: number;
-  ThisUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
-  OrginalUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "" };
-
+  ThisUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "", admin: false, password: "" };
+  OrginalUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "", admin: false, password: "" };
+  Empty: boolean = true;
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(
@@ -30,11 +30,22 @@ export class UserEditComponent implements OnInit {
           this.connection.getUserById(this.UserId).subscribe(
             res => {
               this.ThisUser = res;
-              this.OrginalUser = { id: undefined, username: res.username, RentedBooks: undefined, email: res.email };
+              this.OrginalUser = { id: undefined, username: res.username, RentedBooks: res.RentedBooks, email: res.email, admin: false, password: res.password };
+              if (this.OrginalUser.RentedBooks.length != 0) {
+                this.Empty = false;
+              }
             }, err => { console.log(err); this.router.navigate(['admin/users-new']); }
           )
         }
       })
+
+    // this.connection.getAllBooks().subscribe(
+    //   res => {
+    //     this.BooksAll = [...res];
+    //     if (this.BooksAll.length != 0) {
+    //       this.BooksEmpty = false;
+    //     }
+    //   }, err => { console.log(err); })
   }
 
 
