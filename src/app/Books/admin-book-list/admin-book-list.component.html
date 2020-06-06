@@ -8,11 +8,21 @@
     <div class="row m-1">
         <form class="col row">
             <h6 class="col-auto">Search title or date release</h6>
-            <input class="form-control col-2" placeholder="Phrase" [(ngModel)]="SearchText" name="SearchText" />
+            <input class="form-control col-2" placeholder="title or date" [(ngModel)]="SearchText" name="SearchText" />
             <button class="btn btn-primary col-auto" (click)="SearchButtonClick()" [disabled]="!SearchText">Search <i
                     class="fas fa-search"></i></button>
             <button class="btn btn-danger ml-1" [hidden]="!SearchText|| CanClear"
                 (click)="SearchClearButtonClick()">X</button>
+        </form>
+    </div>
+    <div class="row m-1">
+        <form class="col row">
+            <h6 class="col-auto">Search authors</h6>
+            <input class="form-control col-2" placeholder="author" [(ngModel)]="SearchTextA" name="SearchTextA" />
+            <button class="btn btn-primary col-auto" (click)="SearchAButtonClick()" [disabled]="!SearchTextA">Search <i
+                    class="fas fa-search"></i></button>
+            <button class="btn btn-danger ml-1" [hidden]="!SearchTextA|| CanClearA"
+                (click)="SearchClearAButtonClick()">X</button>
         </form>
     </div>
     <div class="row mt-1 border-bottom border-secondary">
@@ -29,8 +39,10 @@
     <div class="text-center" [hidden]="!BooksEmpty">
         <h4>No books to display</h4>
     </div>
-    <app-book-list-element *ngFor="let book of BooksCollection" [hidden]="SearchText" [ThisBook]=" book">
+    <app-book-list-element *ngFor="let book of BooksCollection" [hidden]="SearchTextA || SearchText" [ThisBook]=" book">
     </app-book-list-element>
     <app-book-list-element *ngFor="let book of DisplayedBooks" [hidden]="!SearchText" [ThisBook]="book">
+    </app-book-list-element>
+    <app-book-list-element *ngFor="let book of DisplayedBooksA" [hidden]="!SearchTextA" [ThisBook]="book">
     </app-book-list-element>
 </div>
