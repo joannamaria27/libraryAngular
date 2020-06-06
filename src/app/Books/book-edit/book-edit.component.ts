@@ -33,9 +33,7 @@ export class BookEditComponent implements OnInit {
             res => {
               this.ThisBook = res;
               this.OriginalBook = { id: undefined, title: res.title, Authors: res.Authors, CurrentOwner: res.CurrentOwner, releaseDate: res.releaseDate };
-            }, err => {
-              console.log(err); this.router.navigate(['admin/books-new']);
-            })
+            }, err => { console.log(err); this.router.navigate(['admin/books-new']); })
         }
       })
     this.connection.getAllAuthors().subscribe(

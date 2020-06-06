@@ -3,6 +3,7 @@ import { ConnectionService } from 'src/app/Services/connection.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LibraryUser } from 'src/app/Model/LibraryUser';
 import { Location } from '@angular/common';
+import { Book } from 'src/app/Model/Book';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,7 +18,10 @@ export class UserEditComponent implements OnInit {
   UserId: number;
   ThisUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "", admin: false, password: "" };
   OrginalUser: LibraryUser = { username: "", id: undefined, RentedBooks: [], email: "", admin: false, password: "" };
-  Empty: boolean = true;
+  DisableUpdateBtn: boolean = false;
+
+  BooksAll: Book[] = [];
+  BooksEmpty: boolean = true;
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(
@@ -31,21 +35,19 @@ export class UserEditComponent implements OnInit {
             res => {
               this.ThisUser = res;
               this.OrginalUser = { id: undefined, username: res.username, RentedBooks: res.RentedBooks, email: res.email, admin: false, password: res.password };
-              if (this.OrginalUser.RentedBooks.length != 0) {
-                this.Empty = false;
-              }
-            }, err => { console.log(err); this.router.navigate(['admin/users-new']); }
-          )
+              // if (this.OrginalUser.RentedBooks.length != 0) {
+              //   this.Empty = false;
+              // }
+            }, err => { console.log(err); this.router.navigate(['admin/users-new']); })
         }
       })
-
-    // this.connection.getAllBooks().subscribe(
-    //   res => {
-    //     this.BooksAll = [...res];
-    //     if (this.BooksAll.length != 0) {
-    //       this.BooksEmpty = false;
-    //     }
-    //   }, err => { console.log(err); })
+    this.connection.getAllBooks().subscribe(
+      res => {
+        this.BooksAll = [...res];
+        if (this.BooksAll.length != 0) {
+          this.BooksEmpty = false;
+        }
+      }, err => { console.log(err); })
   }
 
 
