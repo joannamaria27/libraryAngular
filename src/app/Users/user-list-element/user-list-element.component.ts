@@ -17,6 +17,7 @@ export class UserListElementComponent implements OnInit {
 
   ngOnInit() {
     if (this.ThisUser.RentedBooks != null) {
+
       this.Quantity = this.ThisUser.RentedBooks.length;
     }
     else {
@@ -26,6 +27,7 @@ export class UserListElementComponent implements OnInit {
   }
 
   DetailsButtonClick() {
+    //console.log(this.ThisUser.RentedBooks.length);
     this.router.navigate([`admin/users/${this.ThisUser.id}`]);
   }
 
