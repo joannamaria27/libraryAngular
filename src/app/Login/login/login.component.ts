@@ -61,10 +61,12 @@ export class LoginComponent implements OnInit {
     } else if (this.ThisUser.password == null) {
       console.log("User's password is empty");
     } else {
-      this.connection.authenticate(this.ThisUser).subscribe(
+      this.connection.login(this.ThisUser).subscribe(
         (res) => {
-          console.log("Users login" + this.ThisUser);
-          this.router.navigate(["#"]);
+          this.connection.addHeader(res.jwt);
+          console.log("Users login" + JSON.stringify(this.ThisUser));
+          //console.log(this.connection.getHeaders().get("Authorization"));
+          this.router.navigate(["books"]);
         },
         (err) => {
           console.log(err);

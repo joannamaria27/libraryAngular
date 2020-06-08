@@ -7,7 +7,7 @@ import { HttpHeaders } from "@angular/common/http";
 
 const baseUrl = "/api";
 
-const httpOptions = {
+let httpOptions = {
   headers: new HttpHeaders({
     "Access-Control-Allow-Origin": "*",
     //'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -23,6 +23,17 @@ const httpOptions = {
 })
 export class ConnectionService {
   constructor(private http: HttpClient) {}
+
+  addHeader(jwt){
+    httpOptions.headers = new HttpHeaders({
+      "Access-Control-Allow-Origin": "*",
+      'Authorization': 'Bearer ' + jwt,
+    })
+    return httpOptions.headers;
+  }
+  getHeaders(){
+    return httpOptions.headers;
+  }
 
   //BOOKS
   getAllBooks() {
@@ -115,7 +126,7 @@ export class ConnectionService {
     );
   }
 
-  authenticate(user) {
+  login(user) {
     return this.http.post<LibraryUser>(
       `${baseUrl}/user/authenticate`,
       user,

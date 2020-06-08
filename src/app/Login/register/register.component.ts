@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     } else {
       this.connection.signUp(this.NewUser).subscribe(
         (res) => {
-          console.log("Users added" + this.NewUser);
+          console.log("Users added" + JSON.stringify(this.NewUser));
           this.router.navigate(["login"]);
         },
         (err) => {
