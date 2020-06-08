@@ -14,16 +14,5 @@ export class AppComponent {
 
   ngOnInit() {
     //trzeba chyba dodac guard'a
-    if (LoginComponent.CUser.admin == true) {
-      this.hid = true;
-    } else {
-      this.hid = false;
-    }
-
-    if (LoginComponent.isLogin == true) {
-      this.log = true;
-    } else {
-      this.log = false;
-    }
   }
 }
