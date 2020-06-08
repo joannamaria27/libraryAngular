@@ -4,6 +4,21 @@ import { Book } from "../Model/Book";
 import { LibraryUser } from "../Model/LibraryUser";
 import { Author } from "../Model/Author";
 import { HttpHeaders } from "@angular/common/http";
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse }
+  from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class AddHeaderInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const clonedRequest = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + localStorage.getItem("jwt")) });
+    console.log("Request with JWT");
+    if(localStorage.getItem("jwt") != null)
+      return next.handle(clonedRequest);
+    else
+      return next.handle(req);
+  }
+}
 
 const baseUrl = "/api";
 
@@ -25,11 +40,7 @@ export class ConnectionService {
   constructor(private http: HttpClient) {}
 
   addHeader(jwt){
-    httpOptions.headers = new HttpHeaders({
-      "Access-Control-Allow-Origin": "*",
-      'Authorization': 'Bearer ' + jwt,
-    })
-    return httpOptions.headers;
+    localStorage.setItem("jwt", jwt);
   }
   getHeaders(){
     return httpOptions.headers;

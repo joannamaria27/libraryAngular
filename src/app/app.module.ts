@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BookAddComponent} from './Books/book-add/book-add.component'
@@ -19,7 +19,7 @@ import {AdminBookListComponent} from './Books/admin-book-list/admin-book-list.co
 import {LoginComponent} from './Login/login/login.component'
 import {RegisterComponent} from './Login/register/register.component'
 import { from } from 'rxjs';
-import { ConnectionService } from './Services/connection.service';
+import { ConnectionService, AddHeaderInterceptor } from './Services/connection.service';
 import { AuthorListElementComponent } from './Authors/author-list-element/author-list-element.component';
 import { BookListElementComponent } from './Books/book-list-element/book-list-element.component';
 import { BookRentElementComponent } from './Books/book-rent-element/book-rent-element.component';
@@ -53,7 +53,12 @@ import { UserListElementComponent } from './Users/user-list-element/user-list-el
     FormsModule,
     AppRoutingModule,
   ],
-  providers: [ConnectionService],
+  providers: [ConnectionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddHeaderInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
