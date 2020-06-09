@@ -18,6 +18,9 @@ export class AppComponent {
 
   Logout() {
     this.connection.removeHeader();
+    localStorage.removeItem("username");
+    localStorage.removeItem("id");
+    
     console.log("Users log out");
     this.router.navigate(["login"]);
   }

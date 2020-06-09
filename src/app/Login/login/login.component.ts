@@ -65,8 +65,10 @@ export class LoginComponent implements OnInit {
       this.connection.login(this.ThisUser).subscribe(
         (res) => {
           this.connection.addHeader(res.jwt);
+          localStorage.setItem("username", res.username);
+          localStorage.setItem("id", res.id.toString());
+
           console.log("Users login" + JSON.stringify(this.ThisUser));
-          //console.log(this.connection.getHeaders().get("Authorization"));
           this.router.navigate(["books"]);
         },
         (err) => {

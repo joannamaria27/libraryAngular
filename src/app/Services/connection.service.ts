@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Book } from "../Model/Book";
 import { LibraryUser } from "../Model/LibraryUser";
 import { Author } from "../Model/Author";
+import { Authorization } from "../Model/Authorization";
 import { HttpHeaders } from "@angular/common/http";
 import {
   HttpInterceptor,
@@ -50,6 +51,7 @@ let httpOptions = {
 export class ConnectionService {
   constructor(private http: HttpClient) {}
 
+  //Header
   addHeader(jwt) {
     localStorage.setItem("jwt", jwt);
   }
@@ -152,7 +154,7 @@ export class ConnectionService {
   }
 
   login(user) {
-    return this.http.post<LibraryUser>(
+    return this.http.post<Authorization>(
       `${baseUrl}/user/authenticate`,
       user,
       httpOptions
