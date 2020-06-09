@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Book } from 'src/app/Model/Book';
-import { ConnectionService } from 'src/app/Services/connection.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input } from "@angular/core";
+import { Book } from "src/app/Model/Book";
+import { ConnectionService } from "src/app/Services/connection.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-admin-book-list',
-  templateUrl: './admin-book-list.component.html',
-  styleUrls: ['./admin-book-list.component.css']
+  selector: "app-admin-book-list",
+  templateUrl: "./admin-book-list.component.html",
+  styleUrls: ["./admin-book-list.component.css"],
 })
 export class AdminBookListComponent implements OnInit {
   BooksEmpty: boolean = true;
@@ -17,24 +17,34 @@ export class AdminBookListComponent implements OnInit {
   DisplayedBooksA: Book[] = [];
   SearchTextA: string;
   CanClearA: boolean = false;
-  constructor(private connection: ConnectionService, private router: Router, ) { }
+  constructor(private connection: ConnectionService, private router: Router) {}
+
+  ad: boolean = localStorage.getItem("admin") == "true" ? true : false;
 
   ngOnInit() {
     this.connection.getAllBooksByAuthorName(name).subscribe(
-      res => {
+      (res) => {
         this.BooksCollectionA = [...res];
         if (this.BooksCollectionA.length != 0) {
           this.BooksEmptyA = false;
         }
-      }, err => { console.log(err); })
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
 
     this.connection.getAllBooks().subscribe(
-      res => {
+      (res) => {
         this.BooksCollection = [...res];
         if (this.BooksCollection.length != 0) {
           this.BooksEmpty = false;
         }
-      }, err => { console.log(err); })
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   SearchClearAButtonClick() {
@@ -53,21 +63,23 @@ export class AdminBookListComponent implements OnInit {
     this.DisplayedBooksA = this.DisplayedBooksA.filter((element) => {
       return element.Authors.filter((element1) => {
         //console.log(element1.fullName);
-        return element1.fullName.toLowerCase().includes(this.SearchTextA.toLowerCase());
+        return element1.fullName
+          .toLowerCase()
+          .includes(this.SearchTextA.toLowerCase());
       });
     });
-    if (this.DisplayedBooksA.length != 0) { this.BooksEmptyA = false; }
+    if (this.DisplayedBooksA.length != 0) {
+      this.BooksEmptyA = false;
+    }
   }
 
-
   AddBookButtonClick() {
-    this.router.navigate(['admin/books-new']);
+    this.router.navigate(["admin/books-new"]);
   }
 
   DisplayedBooks: Book[] = [];
   SearchText: string;
   CanClear: boolean = false;
-
 
   SearchClearButtonClick() {
     this.CanClear = false;
@@ -83,15 +95,15 @@ export class AdminBookListComponent implements OnInit {
     this.DisplayedBooks = [...this.BooksCollection];
     this.BooksEmpty = false;
     this.DisplayedBooks = this.DisplayedBooks.filter((element) => {
-      return element.title.toLowerCase().includes(this.SearchText.toLowerCase()) || element.releaseDate.toLowerCase().includes(this.SearchText.toLowerCase());
+      return (
+        element.title.toLowerCase().includes(this.SearchText.toLowerCase()) ||
+        element.releaseDate
+          .toLowerCase()
+          .includes(this.SearchText.toLowerCase())
+      );
     });
     if (this.DisplayedBooks.length != 0) {
       this.BooksEmpty = false;
     }
   }
-
-
-
 }
-
-

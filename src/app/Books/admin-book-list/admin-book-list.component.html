@@ -74,7 +74,7 @@
     <h4>No books to display</h4>
   </div>
 
-  <div>
+  <div *ngIf="ad">
     <app-book-list-element
       *ngFor="let book of BooksCollection"
       [hidden]="SearchTextA || SearchText"
@@ -92,7 +92,7 @@
       [ThisBook]="book"
     ></app-book-list-element>
   </div>
-  <div>
+  <div *ngIf="!ad">
     <app-book-rent-element
       *ngFor="let book of BooksCollection"
       [hidden]="SearchText"
