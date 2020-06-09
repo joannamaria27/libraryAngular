@@ -160,4 +160,8 @@ export class ConnectionService {
       httpOptions
     );
   }
+
+  borrow(id, username) {
+    return this.http.post(`${baseUrl}/borrow/${id}`, username, httpOptions);
+  }
 }
