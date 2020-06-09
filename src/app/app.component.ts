@@ -11,12 +11,11 @@ import { Router } from "@angular/router";
 })
 export class AppComponent {
   title = "HybrydoweFront";
-  hid: boolean = false;
-  log: boolean = false;
 
   constructor(private connection: ConnectionService, private router: Router) {}
 
   ngOnInit() {}
+
   Logout() {
     this.connection.removeHeader();
     console.log("Users log out");

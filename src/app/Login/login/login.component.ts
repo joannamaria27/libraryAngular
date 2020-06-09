@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { LibraryUser } from "src/app/Model/LibraryUser";
 import { element } from "protractor";
+import { AppComponent } from "src/app/app.component";
 
 @Component({
   selector: "app-login",

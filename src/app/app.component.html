@@ -17,10 +17,12 @@
     </div>
     <div class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a routerLink="register" class="nav-link">Login/Register</a>
+        <a routerLink="register" class="nav-link">Register</a>
       </li>
-      <li class="nav-item">
-        <button class="nav-link" (click)="Logout()">Log out</button>
+      <li class="nav-item" [hidden]="log">
+        <button class="btn btn-info" (click)="Logout()">
+          Log in/out
+        </button>
       </li>
     </div>
   </nav>
