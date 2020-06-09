@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
           this.connection.addHeader(res.jwt);
           localStorage.setItem("username", res.username);
           localStorage.setItem("id", res.id.toString());
+          localStorage.setItem("admin", res.admin.toString());
 
           console.log("Users login" + JSON.stringify(this.ThisUser));
           this.router.navigate(["books"]);

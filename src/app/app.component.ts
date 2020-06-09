@@ -20,7 +20,8 @@ export class AppComponent {
     this.connection.removeHeader();
     localStorage.removeItem("username");
     localStorage.removeItem("id");
-    
+    localStorage.removeItem("admin");
+
     console.log("Users log out");
     this.router.navigate(["login"]);
   }
