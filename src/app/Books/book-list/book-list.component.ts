@@ -11,27 +11,27 @@ import { LibraryUser } from "src/app/Model/LibraryUser";
   styleUrls: ["./book-list.component.css"],
 })
 export class BookListComponent implements OnInit {
+  UserId: number;
+  UserIsAdmin: boolean;
+  
   BooksAll: Book[] = [];
   BooksAllEmpty: boolean;
   BooksAvailable: Book[] = [];
   BooksAvailableEmpty: boolean;
   BooksRented: Book[] = [];
   BooksRentedEmpty: boolean;
+
+  BooksTemp: Book[] = [];
+  BooksFiltered: Book[] = [];
+  BooksFilteredEmpty: boolean;
   BooksFilteredAutors: Book[] = [];
-  BooksFilteredTitleDate: Book[] = [];
-  UserId: number;
-  UserIsAdmin: boolean;
+  BooksFilteredTitle: Book[] = [];
   
-  
-  
-  BooksEmpty: boolean = true;
-  BooksCollection: Book[] = [];
-  name: string;
-  BooksEmptyA: boolean = true;
-  BooksCollectionA: Book[] = [];
-  DisplayedBooksA: Book[] = [];
-  SearchTextA: string;
-  CanClearA: boolean = false;
+  SearchTextAutor: string;
+  CanClearA: boolean;
+  SearchTextTitle: string;
+  CanClearT: boolean;
+
   constructor(
     private connection: ConnectionService,
     private router: Router,
@@ -67,91 +67,73 @@ export class BookListComponent implements OnInit {
           if(this.BooksAvailable.length == 0) this.BooksAvailableEmpty = true; else this.BooksAvailableEmpty = true;
           if(this.BooksAvailable.length == 0) this.BooksRentedEmpty = true; else this.BooksRentedEmpty = true;
         }
-        console.log(JSON.stringify(this.BooksAll));
+        this.BooksFilteredAutors = [...this.BooksAll];
+        this.BooksFilteredTitle = [...this.BooksAll];
       },
       (err) => { console.log(err); }
     );
+  }
 
+  SearchTextAuthorChanged() {
+    this.CanClearA = this.SearchTextAutor == "";
+  }
+  SearchTextTitleChanged() {
+    this.CanClearT = this.SearchTextTitle == "";
+  }
 
-    this.DisplayedBooks = this.DisplayedBooks.filter((element) => {
-      return (
-        element.title.toLowerCase().includes(this.SearchText.toLowerCase()) ||
-        element.releaseDate
-          .toLowerCase()
-          .includes(this.SearchText.toLowerCase())
-      );
-    });
-
-
-
-    this.activatedRoute.paramMap.subscribe((params) => {
-      if (Number.isNaN(this.id)) { this.router.navigate(["books"]);}
-      else {
-        this.connection.getLoggedUser(this.id).subscribe(
-          (res) => { this.ThisUser = res; },
-          (err) => { this.router.navigate([""]); }
-        );
-      }
-    });
+  SearchClearButtonClick() {
+    this.SearchTextTitle = "";
+    this.BooksFilteredTitle = [...this.BooksAll];
   }
 
   SearchClearAButtonClick() {
-    this.CanClearA = false;
-    this.SearchTextA = "";
-    this.DisplayedBooksA = [...this.BooksCollectionA];
-    if (this.BooksCollectionA.length != 0) {
-      this.BooksEmptyA = false;
-    }
+    this.SearchTextAutor = "";
+    this.BooksFilteredAutors = [...this.BooksAll];
   }
 
   SearchAButtonClick() {
-    this.CanClearA = true;
-    this.DisplayedBooksA = [...this.BooksCollectionA];
-    this.BooksEmptyA = false;
-    this.DisplayedBooksA = this.DisplayedBooksA.filter((element) => {
-      return element.Authors.filter((element1) => {
-        //console.log(element1.fullName);
-        return element1.fullName
-          .toLowerCase()
-          .includes(this.SearchTextA.toLowerCase());
+    this.BooksFilteredAutors = this.BooksAll.filter((book) => {
+      return book.Authors.filter((author) => {
+        return author.fullName.toLowerCase().includes(this.SearchTextAutor.toLowerCase());
       });
     });
-    if (this.DisplayedBooksA.length != 0) {
-      this.BooksEmptyA = false;
-    }
+    if(this.UserIsAdmin) this.BooksFiltered = this.BooksAll;
+    else this.BooksFiltered = this.BooksAvailable;
+
+//
+
+//
+
+    console.log("BooksAll " + JSON.stringify(this.BooksAll));
+    console.log("BooksAvailable " + JSON.stringify(this.BooksAvailable));
+    console.log("BooksFilteredAutors " + JSON.stringify(this.BooksFilteredAutors));
+    console.log("BooksFilteredTitle " + JSON.stringify(this.BooksFilteredTitle));
+    console.log("BooksFiltered " + JSON.stringify(this.BooksFiltered));
+  }
+
+  SearchButtonClick() {
+    this.BooksFilteredTitle = this.BooksAll.filter((book) => {
+      return (
+        book.title.toLowerCase().includes(this.SearchTextTitle.toLowerCase()) ||
+        book.releaseDate.toLowerCase().includes(this.SearchTextTitle.toLowerCase())
+      );
+    });
+
+    if(this.UserIsAdmin) this.BooksFiltered = this.BooksAll;
+    else this.BooksFiltered = this.BooksAvailable;
+    
+    //
+
+    //
+
+    console.log("BooksAll " + JSON.stringify(this.BooksAll));
+    console.log("BooksAvailable " + JSON.stringify(this.BooksAvailable));
+    console.log("BooksFilteredAutors " + JSON.stringify(this.BooksFilteredAutors));
+    console.log("BooksFilteredTitle " + JSON.stringify(this.BooksFilteredTitle));
+    console.log("BooksFiltered " + JSON.stringify(this.BooksFiltered));
   }
 
   AddBookButtonClick() {
     this.router.navigate(["admin/books-new"]);
-  }
-
-  DisplayedBooks: Book[] = [];
-  SearchText: string;
-  CanClear: boolean = false;
-
-  SearchClearButtonClick() {
-    this.CanClear = false;
-    this.SearchText = "";
-    this.DisplayedBooks = [...this.BooksCollection];
-    if (this.BooksCollection.length != 0) {
-      this.BooksEmpty = false;
-    }
-  }
-
-  SearchButtonClick() {
-    this.CanClear = true;
-    this.DisplayedBooks = [...this.BooksCollection];
-    this.BooksEmpty = false;
-    this.DisplayedBooks = this.DisplayedBooks.filter((element) => {
-      return (
-        element.title.toLowerCase().includes(this.SearchText.toLowerCase()) ||
-        element.releaseDate
-          .toLowerCase()
-          .includes(this.SearchText.toLowerCase())
-      );
-    });
-    if (this.DisplayedBooks.length != 0) {
-      this.BooksEmpty = false;
-    }
   }
 }
