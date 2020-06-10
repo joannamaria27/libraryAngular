@@ -15,9 +15,25 @@ export class BookRentElementComponent implements OnInit {
   constructor(private connection: ConnectionService, private router: Router) {}
 
   @Input() ThisBook: Book;
-  @Input() ThisUser: LibraryUser;
+  // @Input() ThisUser: LibraryUser;
 
   Owner: boolean = false;
+  ThisUser: LibraryUser = {
+    username: "",
+    id: undefined,
+    RentedBooks: [],
+    email: "",
+    admin: undefined,
+    password: "",
+  };
+  OrginalUser: LibraryUser = {
+    username: "",
+    id: undefined,
+    RentedBooks: [],
+    email: "",
+    admin: undefined,
+    password: "",
+  };
 
   ngOnInit() {
     if (this.ThisBook.CurrentOwner != null) {
@@ -39,9 +55,27 @@ export class BookRentElementComponent implements OnInit {
   user: string = localStorage.getItem("username");
 
   RentButtonClick() {
-    //this.ThisBook.CurrentOwner = this.ThisUser; //nie wiem czy to tak działa :C
+    this.connection.findUserByName(this.user).subscribe(
+      (res) => {
+        console.log(this.user);
+        this.ThisUser = res;
+        this.OrginalUser = {
+          id: undefined,
+          username: res.username,
+          RentedBooks: res.RentedBooks,
+          email: res.email,
+          admin: res.admin,
+          password: res.password,
+        };
+      },
+      (err) => {
+        console.log(err);
+        this.router.navigate(["books"]);
+      }
+    );
+    this.ThisBook.CurrentOwner = this.ThisUser; //nie wiem czy to tak działa :C
     //this.ThisUser.RentedBooks.push(this.ThisBook);
-    this.connection.borrow(this.ThisBook.id, this.user).subscribe(
+    this.connection.updateBook(this.ThisBook).subscribe(
       (res) => {
         console.log("Book updated succesfully");
         this.router.navigate(["books"]);

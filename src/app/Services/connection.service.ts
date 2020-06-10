@@ -97,8 +97,8 @@ export class ConnectionService {
   getAllUsers() {
     return this.http.get<LibraryUser[]>(`${baseUrl}/admin/users`, httpOptions);
   }
-  getAllUsersByName(name) {
-    return this.http.get<LibraryUser[]>(
+  findUserByName(name) {
+    return this.http.get<LibraryUser>(
       `${baseUrl}/admin/users/name=${name}`,
       httpOptions
     );
@@ -162,6 +162,10 @@ export class ConnectionService {
   }
 
   borrow(id, username) {
-    return this.http.post<Book>(`${baseUrl}/borrow/${id}`, username, httpOptions);
+    return this.http.post<Book>(
+      `${baseUrl}/borrow/${id}`,
+      username,
+      httpOptions
+    );
   }
 }
