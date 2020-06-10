@@ -12,10 +12,9 @@ import { LibraryUser } from "src/app/Model/LibraryUser";
 export class BookRentElementComponent implements OnInit {
   BAuthors: string = "";
 
-  constructor(private connection: ConnectionService, private router: Router) {}
+  constructor(private connection: ConnectionService, private router: Router) { }
 
   @Input() ThisBook: Book;
-  // @Input() ThisUser: LibraryUser;
 
   Owner: boolean = false;
   ThisUser: LibraryUser = {
@@ -36,11 +35,8 @@ export class BookRentElementComponent implements OnInit {
   };
 
   ngOnInit() {
-    if (this.ThisBook.owner != null) {
-      this.Owner = true;
-    } else {
-      this.Owner = false;
-    }
+    if (this.ThisBook.owner != null) { this.Owner = true; }
+    else { this.Owner = false; }
 
     if (this.ThisBook.Authors != null) {
       this.ThisBook.Authors.forEach((element) => {
@@ -55,26 +51,7 @@ export class BookRentElementComponent implements OnInit {
   user: string = localStorage.getItem("username");
 
   RentButtonClick() {
-    /*this.connection.findUserByName(this.user).subscribe(
-      (res) => {
-        console.log(this.user);
-        this.ThisUser = res;
-        this.OrginalUser = {
-          id: undefined,
-          username: res.username,
-          RentedBooks: res.RentedBooks,
-          email: res.email,
-          admin: res.admin,
-          password: res.password,
-        };
-      },
-      (err) => {
-        console.log(err);
-        this.router.navigate(["books"]);
-      }
-    );
-    this.ThisBook.CurrentOwner = this.ThisUser;*/
-    this.connection.borrow(this.ThisBook.id,this.user).subscribe(
+    this.connection.borrow(this.ThisBook.id, this.user).subscribe(
       (res) => {
         console.log("Book rented succesfully");
         this.router.navigate(["books"]);
@@ -82,46 +59,18 @@ export class BookRentElementComponent implements OnInit {
       (err) => {
         console.log(err);
       }
-    ) //nie wiem czy to tak działa :C
-    //this.ThisUser.RentedBooks.push(this.ThisBook);
-    /*this.connection.updateBook(this.ThisBook).subscribe(
+    );
+  }
+
+  ReturnButtonClick() {
+    this.connection.return(this.ThisBook.id).subscribe(
       (res) => {
-        console.log("Book updated succesfully");
+        console.log("Book return succesfully");
         this.router.navigate(["books"]);
       },
       (err) => {
         console.log(err);
       }
-    );*/
-    // this.connection.updateUser(this.ThisBook).subscribe(
-    //   res => {
-    //     console.log("User updated succesfully");
-    //     this.router.navigate(['admin/books'])
-    //   }, err => {
-    //     console.log(err);
-    //   })
-  }
-
-  ReturnButtonClick() {
-    this.ThisBook.owner = null;
-     //nie wiem czy to tak działa :C
-    // const ind = this.ThisUser.RentedBooks.indexOf(this.ThisBook);
-    // this.ThisUser.RentedBooks.splice(ind, 1);
-    // this.connection.borrow(this.ThisBook.id).subscribe(
-    //   (res) => {
-    //     console.log("Book updated succesfully");
-    //     this.router.navigate(["admin/books"]);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
-    // this.connection.updateUser(this.ThisBook).subscribe(
-    //   res => {
-    //     console.log("User updated succesfully");
-    //     this.router.navigate(['admin/books'])
-    //   }, err => {
-    //     console.log(err);
-    //   })
+    );
   }
 }
