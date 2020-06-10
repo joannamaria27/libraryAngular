@@ -93,8 +93,11 @@ export class BookListComponent implements OnInit {
 
   SearchAButtonClick() {
     if (this.UserIsAdmin) {
+
       this.BooksFilteredAutors = this.BooksAll.filter((book) => {
+        console.log(book.Authors);
         return book.Authors.filter((author) => {
+          console.log(author);
           return author.fullName.toLowerCase().includes(this.SearchTextAutor.toLowerCase());
         });
       });
@@ -102,6 +105,7 @@ export class BookListComponent implements OnInit {
     else {
       this.BooksFilteredAutors = this.BooksAvailable.filter((book) => {
         return book.Authors.filter((author) => {
+          console.log(book.Authors);
           return author.fullName.toLowerCase().includes(this.SearchTextAutor.toLowerCase());
         });
       });

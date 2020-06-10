@@ -54,7 +54,7 @@ export class BookRentElementComponent implements OnInit {
     this.connection.borrow(this.ThisBook.id, this.user).subscribe(
       (res) => {
         console.log("Book rented succesfully");
-        this.router.navigate(["books"]);
+        window.location.reload();
       },
       (err) => {
         console.log(err);
@@ -66,11 +66,12 @@ export class BookRentElementComponent implements OnInit {
     this.connection.return(this.ThisBook.id).subscribe(
       (res) => {
         console.log("Book return succesfully");
-        this.router.navigate(["books"]);
+        window.location.reload();
       },
       (err) => {
         console.log(err);
       }
+
     );
   }
 }
