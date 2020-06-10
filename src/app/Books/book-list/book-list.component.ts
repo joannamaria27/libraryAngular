@@ -13,7 +13,7 @@ import { LibraryUser } from "src/app/Model/LibraryUser";
 export class BookListComponent implements OnInit {
   UserId: number;
   UserIsAdmin: boolean;
-  
+
   BooksAll: Book[] = [];
   BooksAllEmpty: boolean;
   BooksAvailable: Book[] = [];
@@ -26,7 +26,7 @@ export class BookListComponent implements OnInit {
   BooksFilteredEmpty: boolean;
   BooksFilteredAutors: Book[] = [];
   BooksFilteredTitle: Book[] = [];
-  
+
   SearchTextAutor: string;
   CanClearA: boolean;
   SearchTextTitle: string;
@@ -36,7 +36,7 @@ export class BookListComponent implements OnInit {
     private connection: ConnectionService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ad: boolean = localStorage.getItem("admin") == "true" ? true : false;
   id: number = parseInt(localStorage.getItem("id"));
@@ -57,15 +57,15 @@ export class BookListComponent implements OnInit {
         this.BooksAll = [...res];
         if (this.BooksAll.length == 0) this.BooksAllEmpty = true;
         else this.BooksAllEmpty = false;
-        if(!this.BooksAllEmpty){
+        if (!this.BooksAllEmpty) {
           this.BooksAvailable = [];
           this.BooksRented = [];
           this.BooksAll.filter((book) => {
-            if(book.owner == null) this.BooksAvailable.push(book);
-            else if(book.owner.id == this.UserId) this.BooksRented.push(book);
+            if (book.owner == null) this.BooksAvailable.push(book);
+            else if (book.owner.id == this.UserId) this.BooksRented.push(book);
           })
-          if(this.BooksAvailable.length == 0) this.BooksAvailableEmpty = true; else this.BooksAvailableEmpty = true;
-          if(this.BooksAvailable.length == 0) this.BooksRentedEmpty = true; else this.BooksRentedEmpty = true;
+          if (this.BooksAvailable.length == 0) this.BooksAvailableEmpty = true; else this.BooksAvailableEmpty = true;
+          if (this.BooksAvailable.length == 0) this.BooksRentedEmpty = true; else this.BooksRentedEmpty = true;
         }
         this.BooksFilteredAutors = [...this.BooksAll];
         this.BooksFilteredTitle = [...this.BooksAll];
@@ -92,17 +92,27 @@ export class BookListComponent implements OnInit {
   }
 
   SearchAButtonClick() {
-    this.BooksFilteredAutors = this.BooksAll.filter((book) => {
-      return book.Authors.filter((author) => {
-        return author.fullName.toLowerCase().includes(this.SearchTextAutor.toLowerCase());
+    if (this.UserIsAdmin) {
+      this.BooksFilteredAutors = this.BooksAll.filter((book) => {
+        return book.Authors.filter((author) => {
+          return author.fullName.toLowerCase().includes(this.SearchTextAutor.toLowerCase());
+        });
       });
-    });
-    if(this.UserIsAdmin) this.BooksFiltered = this.BooksAll;
-    else this.BooksFiltered = this.BooksAvailable;
+    }
+    else {
+      this.BooksFilteredAutors = this.BooksAvailable.filter((book) => {
+        return book.Authors.filter((author) => {
+          return author.fullName.toLowerCase().includes(this.SearchTextAutor.toLowerCase());
+        });
+      });
+    }
+    this.BooksFiltered = this.BooksFilteredAutors;
 
-//
 
-//
+
+    //
+
+    //
 
     console.log("BooksAll " + JSON.stringify(this.BooksAll));
     console.log("BooksAvailable " + JSON.stringify(this.BooksAvailable));
@@ -112,16 +122,25 @@ export class BookListComponent implements OnInit {
   }
 
   SearchButtonClick() {
-    this.BooksFilteredTitle = this.BooksAll.filter((book) => {
-      return (
-        book.title.toLowerCase().includes(this.SearchTextTitle.toLowerCase()) ||
-        book.releaseDate.toLowerCase().includes(this.SearchTextTitle.toLowerCase())
-      );
-    });
+    if (this.UserIsAdmin) {
+      this.BooksFilteredTitle = this.BooksAll.filter((book) => {
+        return (
+          book.title.toLowerCase().includes(this.SearchTextTitle.toLowerCase()) ||
+          book.releaseDate.toLowerCase().includes(this.SearchTextTitle.toLowerCase())
+        );
+      });
+    }
+    else {
+      this.BooksFilteredTitle = this.BooksAvailable.filter((book) => {
+        return (
+          book.title.toLowerCase().includes(this.SearchTextTitle.toLowerCase()) ||
+          book.releaseDate.toLowerCase().includes(this.SearchTextTitle.toLowerCase())
+        );
+      });
+    }
+    this.BooksFiltered = this.BooksFilteredTitle;
 
-    if(this.UserIsAdmin) this.BooksFiltered = this.BooksAll;
-    else this.BooksFiltered = this.BooksAvailable;
-    
+
     //
 
     //
