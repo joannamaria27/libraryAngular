@@ -26,7 +26,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
         "Bearer " + localStorage.getItem("jwt")
       ),
     });
-    console.log("Request with JWT");
+    console.log("Request with JWT" + " " + req.url);
     if (localStorage.getItem("jwt") != null) return next.handle(clonedRequest);
     else return next.handle(req);
   }

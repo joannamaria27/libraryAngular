@@ -12,9 +12,9 @@ import { Author } from 'src/app/Model/Author';
 })
 export class BookEditComponent implements OnInit {
   BookId: number;
-  ThisBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", CurrentOwner: undefined };
+  ThisBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", owner: undefined };
   DisableUpdateBtn: boolean = false;
-  OriginalBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", CurrentOwner: undefined };
+  OriginalBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", owner: undefined };
   AuthorsAll: Author[] = [];
   AuthorsEmpty: boolean = true;
 
@@ -32,7 +32,7 @@ export class BookEditComponent implements OnInit {
           this.connection.getBookById(this.BookId).subscribe(
             res => {
               this.ThisBook = res;
-              this.OriginalBook = { id: undefined, title: res.title, Authors: res.Authors, CurrentOwner: res.CurrentOwner, releaseDate: res.releaseDate };
+              this.OriginalBook = { id: undefined, title: res.title, Authors: res.Authors, owner: res.owner, releaseDate: res.releaseDate };
             }, err => { console.log(err); this.router.navigate(['admin/books-new']); })
         }
       })

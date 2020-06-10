@@ -36,7 +36,7 @@ export class BookRentElementComponent implements OnInit {
   };
 
   ngOnInit() {
-    if (this.ThisBook.CurrentOwner != null) {
+    if (this.ThisBook.owner != null) {
       this.Owner = true;
     } else {
       this.Owner = false;
@@ -103,7 +103,7 @@ export class BookRentElementComponent implements OnInit {
   }
 
   ReturnButtonClick() {
-    this.ThisBook.CurrentOwner = null;
+    this.ThisBook.owner = null;
      //nie wiem czy to tak działa :C
     // const ind = this.ThisUser.RentedBooks.indexOf(this.ThisBook);
     // this.ThisUser.RentedBooks.splice(ind, 1);

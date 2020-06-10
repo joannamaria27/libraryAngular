@@ -5,6 +5,6 @@ export class Book{
     id:number;
     title:string;
     releaseDate:string;
-    CurrentOwner:LibraryUser;
+    owner:LibraryUser;
     Authors:Author[];
 }

@@ -11,6 +11,19 @@ import { LibraryUser } from "src/app/Model/LibraryUser";
   styleUrls: ["./book-list.component.css"],
 })
 export class BookListComponent implements OnInit {
+  BooksAll: Book[] = [];
+  BooksAllEmpty: boolean;
+  BooksAvailable: Book[] = [];
+  BooksAvailableEmpty: boolean;
+  BooksRented: Book[] = [];
+  BooksRentedEmpty: boolean;
+  BooksFilteredAutors: Book[] = [];
+  BooksFilteredTitleDate: Book[] = [];
+  UserId: number;
+  UserIsAdmin: boolean;
+  
+  
+  
   BooksEmpty: boolean = true;
   BooksCollection: Book[] = [];
   name: string;
@@ -37,47 +50,49 @@ export class BookListComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.UserId = parseInt(localStorage.getItem("id"));
+    this.UserIsAdmin = localStorage.getItem("admin") == "true" ? true : false;
+    this.connection.getAllBooks().subscribe(
+      (res) => {
+        this.BooksAll = [...res];
+        if (this.BooksAll.length == 0) this.BooksAllEmpty = true;
+        else this.BooksAllEmpty = false;
+        if(!this.BooksAllEmpty){
+          this.BooksAvailable = [];
+          this.BooksRented = [];
+          this.BooksAll.filter((book) => {
+            if(book.owner == null) this.BooksAvailable.push(book);
+            else if(book.owner.id == this.UserId) this.BooksRented.push(book);
+          })
+          if(this.BooksAvailable.length == 0) this.BooksAvailableEmpty = true; else this.BooksAvailableEmpty = true;
+          if(this.BooksAvailable.length == 0) this.BooksRentedEmpty = true; else this.BooksRentedEmpty = true;
+        }
+        console.log(JSON.stringify(this.BooksAll));
+      },
+      (err) => { console.log(err); }
+    );
+
+
+    this.DisplayedBooks = this.DisplayedBooks.filter((element) => {
+      return (
+        element.title.toLowerCase().includes(this.SearchText.toLowerCase()) ||
+        element.releaseDate
+          .toLowerCase()
+          .includes(this.SearchText.toLowerCase())
+      );
+    });
+
+
+
     this.activatedRoute.paramMap.subscribe((params) => {
-      console.log(this.id);
-      this.id = Number.parseInt(params.get("id"));
-      if (Number.isNaN(this.id)) {
-        this.router.navigate(["books"]);
-      } else {
+      if (Number.isNaN(this.id)) { this.router.navigate(["books"]);}
+      else {
         this.connection.getLoggedUser(this.id).subscribe(
-          (res) => {
-            this.ThisUser = res;
-          },
-          (err) => {
-            console.log(err + "tu nie działa");
-            this.router.navigate([""]);
-          }
+          (res) => { this.ThisUser = res; },
+          (err) => { this.router.navigate([""]); }
         );
       }
     });
-
-    this.connection.getAllBooksByAuthorName(name).subscribe(
-      (res) => {
-        this.BooksCollectionA = [...res];
-        if (this.BooksCollectionA.length != 0) {
-          this.BooksEmptyA = false;
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-
-    this.connection.getAllBooks().subscribe(
-      (res) => {
-        this.BooksCollection = [...res];
-        if (this.BooksCollection.length != 0) {
-          this.BooksEmpty = false;
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
 
   SearchClearAButtonClick() {

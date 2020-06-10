@@ -12,7 +12,7 @@ import { Author } from 'src/app/Model/Author';
   styleUrls: ['./book-add.component.css']
 })
 export class BookAddComponent implements OnInit {
-  NewBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", CurrentOwner: undefined };
+  NewBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", owner: undefined };
 
   AuthorsAll: Author[] = [];
   AuthorsEmpty: boolean = true;
