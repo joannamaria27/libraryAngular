@@ -162,9 +162,15 @@ export class ConnectionService {
   }
 
   borrow(id, username) {
-    return this.http.post<Book>(
-      `${baseUrl}/borrow/${id}`,
-      username,
+    return this.http.post<String>(
+      `${baseUrl}/user/borrow/${id}`,
+      username, 
+      httpOptions
+    );
+  }
+  return(id) {
+    return this.http.post<String>(
+      `${baseUrl}/user/return/${id}`,
       httpOptions
     );
   }
