@@ -174,4 +174,10 @@ export class ConnectionService {
       httpOptions
     );
   }
+  getLoggedUser(id) {
+    return this.http.get<LibraryUser>(
+      `${baseUrl}/user/${id}`,
+      httpOptions
+    );
+  }
 }
