@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!UserIsAdmin">
   <div class="row m-1">
     <h4 class="col-auto">Rent books list</h4>
   </div>
@@ -24,7 +24,11 @@
 <div class="container">
   <div class="row m-1">
     <h4 class="col-auto">Books list</h4>
-    <button *ngIf="ad" class="btn btn-primary mr-1 col-auto" (click)="AddBookButtonClick()">
+    <button
+      *ngIf="ad"
+      class="btn btn-primary mr-1 col-auto"
+      (click)="AddBookButtonClick()"
+    >
       Add Book
       <i class="far fa-plus-square"></i>
     </button>
@@ -32,11 +36,24 @@
   <div class="row m-1">
     <form class="col row">
       <h6 class="col-auto">Search title or date release</h6>
-      <input class="form-control col-2" placeholder="title or date" [(ngModel)]="SearchText" name="SearchText" />
-      <button class="btn btn-primary col-auto" (click)="SearchButtonClick()" [disabled]="!SearchText">
+      <input
+        class="form-control col-2"
+        placeholder="title or date"
+        [(ngModel)]="SearchText"
+        name="SearchText"
+      />
+      <button
+        class="btn btn-primary col-auto"
+        (click)="SearchButtonClick()"
+        [disabled]="!SearchText"
+      >
         Search <i class="fas fa-search"></i>
       </button>
-      <button class="btn btn-danger ml-1" [hidden]="!SearchText || CanClear" (click)="SearchClearButtonClick()">
+      <button
+        class="btn btn-danger ml-1"
+        [hidden]="!SearchText || CanClear"
+        (click)="SearchClearButtonClick()"
+      >
         X
       </button>
     </form>
@@ -44,11 +61,24 @@
   <div class="row m-1">
     <form class="col row">
       <h6 class="col-auto">Search authors</h6>
-      <input class="form-control col-2" placeholder="author" [(ngModel)]="SearchTextA" name="SearchTextA" />
-      <button class="btn btn-primary col-auto" (click)="SearchAButtonClick()" [disabled]="!SearchTextA">
+      <input
+        class="form-control col-2"
+        placeholder="author"
+        [(ngModel)]="SearchTextA"
+        name="SearchTextA"
+      />
+      <button
+        class="btn btn-primary col-auto"
+        (click)="SearchAButtonClick()"
+        [disabled]="!SearchTextA"
+      >
         Search <i class="fas fa-search"></i>
       </button>
-      <button class="btn btn-danger ml-1" [hidden]="!SearchTextA || CanClearA" (click)="SearchClearAButtonClick()">
+      <button
+        class="btn btn-danger ml-1"
+        [hidden]="!SearchTextA || CanClearA"
+        (click)="SearchClearAButtonClick()"
+      >
         X
       </button>
     </form>
@@ -69,12 +99,32 @@
   </div>
 
   <div *ngIf="UserIsAdmin">
-    <app-book-list-element *ngFor="let book of BooksCollection" [hidden]="SearchTextA || SearchText" [ThisBook]="book"></app-book-list-element>
-    <app-book-list-element *ngFor="let book of DisplayedBooks" [hidden]="!SearchText" [ThisBook]="book"></app-book-list-element>
-    <app-book-list-element *ngFor="let book of DisplayedBooksA" [hidden]="!SearchTextA" [ThisBook]="book"></app-book-list-element>
+    <app-book-list-element
+      *ngFor="let book of BooksCollection"
+      [hidden]="SearchTextA || SearchText"
+      [ThisBook]="book"
+    ></app-book-list-element>
+    <app-book-list-element
+      *ngFor="let book of DisplayedBooks"
+      [hidden]="!SearchText"
+      [ThisBook]="book"
+    ></app-book-list-element>
+    <app-book-list-element
+      *ngFor="let book of DisplayedBooksA"
+      [hidden]="!SearchTextA"
+      [ThisBook]="book"
+    ></app-book-list-element>
   </div>
   <div *ngIf="!UserIsAdmin">
-    <app-book-rent-element *ngFor="let book of BooksAvailable" [hidden]="SearchText" [ThisBook]="book"></app-book-rent-element>
-    <app-book-rent-element *ngFor="let book of DisplayedBooks" [hidden]="!SearchText" [ThisBook]="book"></app-book-rent-element>
+    <app-book-rent-element
+      *ngFor="let book of BooksAvailable"
+      [hidden]="SearchText"
+      [ThisBook]="book"
+    ></app-book-rent-element>
+    <app-book-rent-element
+      *ngFor="let book of DisplayedBooks"
+      [hidden]="!SearchText"
+      [ThisBook]="book"
+    ></app-book-rent-element>
   </div>
 </div>
