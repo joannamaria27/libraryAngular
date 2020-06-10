@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Book } from "src/app/Model/Book";
 import { ConnectionService } from "src/app/Services/connection.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Author } from 'src/app/Model/Author';
+import { Location } from '@angular/common';
 
 @Component({
   selector: "app-admin-book-list",
@@ -9,101 +11,57 @@ import { Router } from "@angular/router";
   styleUrls: ["./admin-book-list.component.css"],
 })
 export class AdminBookListComponent implements OnInit {
-  BooksEmpty: boolean = true;
-  BooksCollection: Book[] = [];
-  name: string;
-  BooksEmptyA: boolean = true;
-  BooksCollectionA: Book[] = [];
-  DisplayedBooksA: Book[] = [];
-  SearchTextA: string;
-  CanClearA: boolean = false;
-  constructor(private connection: ConnectionService, private router: Router) {}
+  BookId: number;
+  ThisBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", owner: undefined };
+  DisableUpdateBtn: boolean = false;
+  OriginalBook: Book = { title: "", id: undefined, Authors: [], releaseDate: "", owner: undefined };
+  AuthorsAll: Author[] = [];
+  AuthorsEmpty: boolean = true;
 
-  ad: boolean = localStorage.getItem("admin") == "true" ? true : false;
+  constructor(private connection: ConnectionService, private router: Router, private location: Location,
+    private activatedRoute: ActivatedRoute, ) { }
 
   ngOnInit() {
-    this.connection.getAllBooksByAuthorName(name).subscribe(
-      (res) => {
-        this.BooksCollectionA = [...res];
-        if (this.BooksCollectionA.length != 0) {
-          this.BooksEmptyA = false;
+    this.activatedRoute.paramMap.subscribe(
+      params => {
+        this.BookId = Number.parseInt(params.get('id'));
+        if (Number.isNaN(this.BookId)) {
+          this.router.navigate(['admin/books-new']);
         }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-
-    this.connection.getAllBooks().subscribe(
-      (res) => {
-        this.BooksCollection = [...res];
-        if (this.BooksCollection.length != 0) {
-          this.BooksEmpty = false;
+        else {
+          this.connection.getBookById(this.BookId).subscribe(
+            res => {
+              this.ThisBook = res;
+              this.OriginalBook = { id: undefined, title: res.title, Authors: res.Authors, owner: res.owner, releaseDate: res.releaseDate };
+            }, err => { console.log(err); this.router.navigate(['admin/books-new']); })
         }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      })
+    this.connection.getAllAuthors().subscribe(
+      res => {
+        this.AuthorsAll = [...res];
+        if (this.AuthorsAll.length != 0) {
+          this.AuthorsEmpty = false;
+        }
+      }, err => { console.log(err); })
   }
 
-  SearchClearAButtonClick() {
-    this.CanClearA = false;
-    this.SearchTextA = "";
-    this.DisplayedBooksA = [...this.BooksCollectionA];
-    if (this.BooksCollectionA.length != 0) {
-      this.BooksEmptyA = false;
+  UpdateBookButtonClick() {
+    if ((this.ThisBook.title == this.OriginalBook.title) && (this.ThisBook.Authors == this.OriginalBook.Authors) && (this.ThisBook.releaseDate == this.OriginalBook.releaseDate)) {
+      this.location.back();
+    }
+    else {
+      this.connection.updateBook(this.ThisBook).subscribe(
+        res => {
+          console.log("Book updated succesfully");
+          this.router.navigate(['admin/books'])
+        }, err => {
+          console.log(err);
+        })
     }
   }
 
-  SearchAButtonClick() {
-    this.CanClearA = true;
-    this.DisplayedBooksA = [...this.BooksCollectionA];
-    this.BooksEmptyA = false;
-    this.DisplayedBooksA = this.DisplayedBooksA.filter((element) => {
-      return element.Authors.filter((element1) => {
-        //console.log(element1.fullName);
-        return element1.fullName
-          .toLowerCase()
-          .includes(this.SearchTextA.toLowerCase());
-      });
-    });
-    if (this.DisplayedBooksA.length != 0) {
-      this.BooksEmptyA = false;
-    }
+  BackButtonClick() {
+    this.location.back();
   }
 
-  AddBookButtonClick() {
-    this.router.navigate(["admin/books-new"]);
-  }
-
-  DisplayedBooks: Book[] = [];
-  SearchText: string;
-  CanClear: boolean = false;
-
-  SearchClearButtonClick() {
-    this.CanClear = false;
-    this.SearchText = "";
-    this.DisplayedBooks = [...this.BooksCollection];
-    if (this.BooksCollection.length != 0) {
-      this.BooksEmpty = false;
-    }
-  }
-
-  SearchButtonClick() {
-    this.CanClear = true;
-    this.DisplayedBooks = [...this.BooksCollection];
-    this.BooksEmpty = false;
-    this.DisplayedBooks = this.DisplayedBooks.filter((element) => {
-      return (
-        element.title.toLowerCase().includes(this.SearchText.toLowerCase()) ||
-        element.releaseDate
-          .toLowerCase()
-          .includes(this.SearchText.toLowerCase())
-      );
-    });
-    if (this.DisplayedBooks.length != 0) {
-      this.BooksEmpty = false;
-    }
-  }
 }

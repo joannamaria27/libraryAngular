@@ -1,63 +1,6 @@
-<div class="container">
+<div class="container" *ngIf="!UserIsAdmin">
   <div class="row m-1">
-    <h4 class="col-auto">Books list</h4>
-    <button
-      class="btn btn-primary mr-1 col-auto"
-      (click)="AddBookButtonClick()"
-    >
-      Add Book
-      <i class="far fa-plus-square"></i>
-    </button>
-  </div>
-  <div class="row m-1">
-    <form class="col row">
-      <h6 class="col-auto">Search title or date release</h6>
-      <input
-        class="form-control col-2"
-        placeholder="title or date"
-        [(ngModel)]="SearchText"
-        name="SearchText"
-      />
-      <button
-        class="btn btn-primary col-auto"
-        (click)="SearchButtonClick()"
-        [disabled]="!SearchText"
-      >
-        Search <i class="fas fa-search"></i>
-      </button>
-      <button
-        class="btn btn-danger ml-1"
-        [hidden]="!SearchText || CanClear"
-        (click)="SearchClearButtonClick()"
-      >
-        X
-      </button>
-    </form>
-  </div>
-  <div class="row m-1">
-    <form class="col row">
-      <h6 class="col-auto">Search authors</h6>
-      <input
-        class="form-control col-2"
-        placeholder="author"
-        [(ngModel)]="SearchTextA"
-        name="SearchTextA"
-      />
-      <button
-        class="btn btn-primary col-auto"
-        (click)="SearchAButtonClick()"
-        [disabled]="!SearchTextA"
-      >
-        Search <i class="fas fa-search"></i>
-      </button>
-      <button
-        class="btn btn-danger ml-1"
-        [hidden]="!SearchTextA || CanClearA"
-        (click)="SearchClearAButtonClick()"
-      >
-        X
-      </button>
-    </form>
+    <h4 class="col-auto">Rent books list</h4>
   </div>
   <div class="row mt-1 border-bottom border-secondary">
     <div class="text-center col-3 Properties">
@@ -70,38 +13,123 @@
       <h6>Date release</h6>
     </div>
   </div>
-  <div class="text-center" [hidden]="!BooksEmpty">
+  <div class="text-center" [hidden]="BooksRentedEmpty">
+    <h4>No books to display</h4>
+  </div>
+  <div [hidden]="!BooksRentedEmpty" *ngFor="let book of BooksRented">
+    <app-book-rent-element [ThisBook]="book"> </app-book-rent-element>
+  </div>
+</div>
+
+<div class="container m-4">
+  <div class="row">
+    <h4 class="col-auto">Books list</h4>
+    <button
+      *ngIf="ad"
+      class="btn btn-primary mr-1 col-auto"
+      (click)="AddBookButtonClick()"
+    >
+      Add Book
+      <i class="far fa-plus-square"></i>
+    </button>
+  </div>
+  <div class="m-4">
+    <div class="row m-1">
+      <form class="col row">
+        <h6 class="my-2 mx-2">Search</h6>
+        <input
+          class="form-control col-2"
+          placeholder="title or date"
+          [(ngModel)]="SearchTextTitle"
+          name="SearchTextTitle"
+          (change)="SearchTextTitleChanged()"
+        />
+        <button
+          class="btn btn-primary col-auto"
+          (click)="SearchButtonClick()"
+          [disabled]="!SearchTextTitle"
+        >
+          Search <i class="fas fa-search"></i>
+        </button>
+        <button
+          class="btn btn-danger ml-1"
+          [hidden]="!SearchTextTitle || CanClearT"
+          (click)="SearchClearButtonClick()"
+        >
+          X
+        </button>
+      </form>
+    </div>
+
+    <div class="row m-1">
+      <form class="col row">
+        <h6 class="my-2 mx-2">Search</h6>
+        <input
+          class="form-control col-2"
+          placeholder="author"
+          [(ngModel)]="SearchTextAutor"
+          name="SearchTextAutor"
+          (change)="SearchTextAuthorChanged()"
+        />
+        <button
+          class="btn btn-primary col-auto"
+          (click)="SearchAButtonClick()"
+          [disabled]="!SearchTextAutor"
+        >
+          Search <i class="fas fa-search"></i>
+        </button>
+        <button
+          class="btn btn-danger ml-1"
+          [hidden]="!SearchTextAutor || CanClearA"
+          (click)="SearchClearAButtonClick()"
+        >
+          X
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-1 border-bottom border-secondary">
+    <div class="text-center col-3 Properties">
+      <h6>Title</h6>
+    </div>
+    <div class="text-center col-3 Properties">
+      <h6>Authors</h6>
+    </div>
+    <div class="text-center col-3 Properties">
+      <h6>Date release</h6>
+    </div>
+  </div>
+  <div class="text-center" [hidden]="!BooksAllEmpty">
     <h4>No books to display</h4>
   </div>
 
-  <div *ngIf="ad">
+  <div *ngIf="UserIsAdmin">
     <app-book-list-element
-      *ngFor="let book of BooksCollection"
-      [hidden]="SearchTextA || SearchText"
+      *ngFor="let book of BooksAll"
+      [hidden]="SearchTextAutor || SearchTextTitle"
       [ThisBook]="book"
     >
     </app-book-list-element>
     <app-book-list-element
-      *ngFor="let book of DisplayedBooks"
-      [hidden]="!SearchText"
+      *ngFor="let book of BooksFiltered"
+      [hidden]="!SearchTextAutor && !SearchTextTitle"
       [ThisBook]="book"
-    ></app-book-list-element>
-    <app-book-list-element
-      *ngFor="let book of DisplayedBooksA"
-      [hidden]="!SearchTextA"
-      [ThisBook]="book"
-    ></app-book-list-element>
+    >
+    </app-book-list-element>
   </div>
-  <div *ngIf="!ad">
+  <div *ngIf="!UserIsAdmin">
     <app-book-rent-element
-      *ngFor="let book of BooksCollection"
-      [hidden]="SearchText"
+      *ngFor="let book of BooksAvailable"
+      [hidden]="SearchTextAutor || SearchTextTitle"
       [ThisBook]="book"
-    ></app-book-rent-element>
+    >
+    </app-book-rent-element>
     <app-book-rent-element
-      *ngFor="let book of DisplayedBooks"
-      [hidden]="!SearchText"
+      *ngFor="let book of BooksFiltered"
+      [hidden]="!SearchTextAutor && !SearchTextTitle"
       [ThisBook]="book"
-    ></app-book-rent-element>
+    >
+    </app-book-rent-element>
   </div>
 </div>
