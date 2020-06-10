@@ -3,26 +3,27 @@
     <a href="#" class="navbar-brand">Home</a>
     <div class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a routerLink="books" [hidden]="!log" class="nav-link">Ksiazki</a>
+        <a routerLink="books" class="nav-link">Ksiazki</a>
       </li>
-      <li class="nav-item" [hidden]="!hid">
+      <!-- <li class="nav-item">
         <a routerLink="admin/books" class="nav-link">Admin do ukrycia</a>
+      </li> -->
+      <li class="nav-item">
+        <a routerLink="admin/authors" class="nav-link">Autorzy (admin)</a>
       </li>
-      <li class="nav-item" [hidden]="!hid">
-        <a routerLink="admin/authors" class="nav-link">Autorzy dla admina</a>
-      </li>
-      <li class="nav-item" [hidden]="!hid">
-        <a routerLink="admin/users" class="nav-link">Userzy dla admina</a>
+      <li class="nav-item">
+        <a routerLink="admin/users" class="nav-link">Userzy (admin)</a>
       </li>
     </div>
     <div class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a routerLink="register" class="nav-link">Register</a>
+      </li>
       <li class="nav-item" [hidden]="log">
-        <a routerLink="register" class="nav-link">Login/Register</a>
+        <button class="btn btn-info" (click)="Logout()">
+          Log in/out
+        </button>
       </li>
-      <li class="nav-item" [hidden]="!log">
-        <a routerLink="#" class="nav-link">Log out</a>
-      </li>
-
     </div>
   </nav>
 
@@ -30,7 +31,8 @@
     <router-outlet></router-outlet>
   </div>
   <footer class="page-footer font-small blue fixed-bottom">
-    <div class="footer-copyright text-center py-3">© 2020:
+    <div class="footer-copyright text-center py-3">
+      © 2020:
       <a> Projekt programowanie hybrydowe </a>
     </div>
   </footer>

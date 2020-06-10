@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
-import { LibraryUser } from './Model/LibraryUser';
-import { LoginComponent } from './Login/login/login.component';
+import { Component } from "@angular/core";
+import { LibraryUser } from "./Model/LibraryUser";
+import { LoginComponent } from "./Login/login/login.component";
+import { ConnectionService } from "./Services/connection.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  title = 'HybrydoweFront';
-  hid: boolean = false;
-  log: boolean = false;
+  title = "HybrydoweFront";
 
-  ngOnInit() { //trzeba chyba dodac guard'a 
-    if (LoginComponent.CUser.admin == true) { this.hid = true; }
-    else { this.hid = false; }
+  constructor(private connection: ConnectionService, private router: Router) {}
 
-    if (LoginComponent.isLogin == true) { this.log = true; }
-    else { this.log = false; }
+  ngOnInit() {}
 
+  Logout() {
+    this.connection.removeHeader();
+    localStorage.removeItem("username");
+    localStorage.removeItem("id");
+    localStorage.removeItem("admin");
+
+    console.log("Users log out");
+    this.router.navigate(["login"]);
   }
-
 }
