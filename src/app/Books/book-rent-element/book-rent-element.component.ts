@@ -36,10 +36,12 @@ export class BookRentElementComponent implements OnInit {
     }
   }
 
+  user: string = localStorage.getItem("username");
+
   RentButtonClick() {
-    this.ThisBook.CurrentOwner = this.ThisUser; //nie wiem czy to tak działa :C
+    //this.ThisBook.CurrentOwner = this.ThisUser; //nie wiem czy to tak działa :C
     //this.ThisUser.RentedBooks.push(this.ThisBook);
-    this.connection.updateBook(this.ThisBook).subscribe(
+    this.connection.borrow(this.ThisBook.id, this.user).subscribe(
       (res) => {
         console.log("Book updated succesfully");
         this.router.navigate(["books"]);
@@ -61,15 +63,15 @@ export class BookRentElementComponent implements OnInit {
     this.ThisBook.CurrentOwner = null; //nie wiem czy to tak działa :C
     // const ind = this.ThisUser.RentedBooks.indexOf(this.ThisBook);
     // this.ThisUser.RentedBooks.splice(ind, 1);
-    this.connection.updateBook(this.ThisBook).subscribe(
-      (res) => {
-        console.log("Book updated succesfully");
-        this.router.navigate(["admin/books"]);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    // this.connection.borrow(this.ThisBook.id).subscribe(
+    //   (res) => {
+    //     console.log("Book updated succesfully");
+    //     this.router.navigate(["admin/books"]);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
     // this.connection.updateUser(this.ThisBook).subscribe(
     //   res => {
     //     console.log("User updated succesfully");
