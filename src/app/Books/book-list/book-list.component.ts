@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Book } from "src/app/Model/Book";
 import { ConnectionService } from "src/app/Services/connection.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Author } from "src/app/Model/Author";
+import { LibraryUser } from "src/app/Model/LibraryUser";
 
 @Component({
   selector: "app-book-list",
@@ -18,11 +19,42 @@ export class BookListComponent implements OnInit {
   DisplayedBooksA: Book[] = [];
   SearchTextA: string;
   CanClearA: boolean = false;
-  constructor(private connection: ConnectionService, private router: Router) {}
+  constructor(
+    private connection: ConnectionService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ad: boolean = localStorage.getItem("admin") == "true" ? true : false;
+  id: number = parseInt(localStorage.getItem("id"));
+  ThisUser: LibraryUser = {
+    username: "",
+    id: undefined,
+    RentedBooks: [],
+    email: "",
+    admin: undefined,
+    password: "",
+  };
 
   ngOnInit() {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      console.log(this.id);
+      this.id = Number.parseInt(params.get("id"));
+      if (Number.isNaN(this.id)) {
+        this.router.navigate(["books"]);
+      } else {
+        this.connection.getLoggedUser(this.id).subscribe(
+          (res) => {
+            this.ThisUser = res;
+          },
+          (err) => {
+            console.log(err + "tu nie działa");
+            this.router.navigate([""]);
+          }
+        );
+      }
+    });
+
     this.connection.getAllBooksByAuthorName(name).subscribe(
       (res) => {
         this.BooksCollectionA = [...res];
