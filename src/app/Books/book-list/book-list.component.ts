@@ -78,13 +78,16 @@ export class BookListComponent implements OnInit {
     );
   }
 
-  SearchTextAuthorChanged() {
-    this.CanClearA = this.SearchTextAutor == "";
-  }
   SearchTextTitleChanged() {
     this.CanClearT = this.SearchTextTitle == "";
+    if (this.SearchTextAutor == "" || this.SearchTextAutor == undefined) this.Searched = false;
   }
 
+  SearchTextAuthorChanged() {
+    this.CanClearA = this.SearchTextAutor == "";
+    if (this.SearchTextTitle == "" || this.SearchTextTitle == undefined) this.Searched = false;
+  }
+  
   SearchClearButtonClick() {
     this.SearchTextTitle = "";
     if (this.SearchTextAutor == "" || this.SearchTextAutor == undefined) this.Searched = false;
