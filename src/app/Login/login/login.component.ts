@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private location: Location,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   UsersCollection: LibraryUser[] = [];
   DisplayedUsers: LibraryUser[] = [];
@@ -50,10 +50,7 @@ export class LoginComponent implements OnInit {
           this.UsersEmpty = false;
         }
       },
-      (err) => {
-        console.log(err);
-      }
-    );
+      (err) => { console.log(err); });
   }
 
   Enter() {
@@ -70,28 +67,13 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("admin", res.admin.toString());
 
           console.log("Users login" + JSON.stringify(this.ThisUser));
-          this.router.navigate(["books"]);
+          // this.router.navigate(["books"]);
+          location.replace("books");
         },
-        (err) => {
-          console.log(err);
-        }
-      );
-
-      // this.DisplayedUsers = [...this.UsersCollection];
-      // this.UsersEmpty = false;
-      // this.DisplayedUsers.find((element) => {
-      //   element.username.includes(this.ThisUser.username);
-      //   if (element.password == this.ThisUser.password) {
-      //     console.log("login: " + this.ThisUser.username);
-      //     LoginComponent.isLogin = true;
-      //     LoginComponent.CUser = this.ThisUser;
-      //     this.router.navigate(["books"]);
-      //   } else {
-      //     console.log("bad data");
-      //   }
-      // });
+        (err) => { console.log(err); });
     }
   }
+
   RegButtonClick() {
     this.router.navigate(["register"]);
   }

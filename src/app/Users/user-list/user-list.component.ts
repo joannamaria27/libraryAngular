@@ -9,8 +9,9 @@ import { LibraryUser } from 'src/app/Model/LibraryUser';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  isLogin: boolean;
 
-  constructor(private connection: ConnectionService, private router: Router, ) { }
+  constructor(private connection: ConnectionService, private router: Router,) { }
   UsersCollection: LibraryUser[] = [];
   UsersEmpty: boolean = true;
 

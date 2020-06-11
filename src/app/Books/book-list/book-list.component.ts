@@ -53,6 +53,7 @@ export class BookListComponent implements OnInit {
   };
 
   ngOnInit() {
+
     this.UserId = parseInt(localStorage.getItem("id"));
     this.UserIsAdmin = localStorage.getItem("admin") == "true" ? true : false;
     this.connection.getAllBooks().subscribe(
@@ -86,12 +87,12 @@ export class BookListComponent implements OnInit {
 
   SearchClearButtonClick() {
     this.SearchTextTitle = "";
-    if(this.SearchTextAutor == "" || this.SearchTextAutor == undefined ) this.Searched = false;
+    if (this.SearchTextAutor == "" || this.SearchTextAutor == undefined) this.Searched = false;
   }
 
   SearchClearAButtonClick() {
     this.SearchTextAutor = "";
-    if(this.SearchTextTitle == "" || this.SearchTextTitle == undefined ) this.Searched = false;
+    if (this.SearchTextTitle == "" || this.SearchTextTitle == undefined) this.Searched = false;
   }
 
   SearchAButtonClick() {
@@ -115,10 +116,10 @@ export class BookListComponent implements OnInit {
     this.FilterBooks();
   }
 
-  FilterBooks(){
+  FilterBooks() {
     this.Searched = true;
-    
-    if(this.UserIsAdmin) this.BooksFiltered = this.BooksAll;
+
+    if (this.UserIsAdmin) this.BooksFiltered = this.BooksAll;
     else this.BooksFiltered = this.BooksAvailable;
 
     this.BooksFiltered = this.BooksFiltered.filter((book) => this.BooksFilteredTitle.includes(book));

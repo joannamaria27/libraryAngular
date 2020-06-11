@@ -12,16 +12,24 @@ import { Router } from "@angular/router";
 export class AppComponent {
   title = "HybrydoweFront";
 
-  constructor(private connection: ConnectionService, private router: Router) {}
+  constructor(private connection: ConnectionService, private router: Router) { }
 
-  ngOnInit() {}
+  isAdmin: boolean;
+  isLogin: boolean;
+
+  ngOnInit() {
+    this.isAdmin = localStorage.getItem("admin") == "true" ? true : false;
+    this.isLogin = localStorage.getItem("admin") != null ? true : false;
+  }
+
 
   Logout() {
     this.connection.removeHeader();
     localStorage.removeItem("username");
     localStorage.removeItem("id");
     localStorage.removeItem("admin");
-
+    this.isAdmin = false;
+    this.isLogin = false;
     console.log("Users log out");
     this.router.navigate(["login"]);
   }
