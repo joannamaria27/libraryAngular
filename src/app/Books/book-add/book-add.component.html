@@ -11,7 +11,7 @@
         <label>Book's title:</label>
         <input type="text" class="form-control" [(ngModel)]="NewBook.title" name="title" />
         <label>Book's authors: </label>
-        <select multiple class="form-control " name="a" ngModel size="3" [(ngModel)]="NewBook.Authors">
+        <select multiple class="form-control " name="a" ngModel size="7" [(ngModel)]="NewBook.Authors">
           <option *ngFor="let author of AuthorsAll" [ngValue]="author">
             {{ author.fullName }}
           </option>
