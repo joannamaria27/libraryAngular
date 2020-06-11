@@ -24,11 +24,7 @@
 <div class="container m-4">
   <div class="row">
     <h4 class="col-auto">Books list</h4>
-    <button
-      *ngIf="ad"
-      class="btn btn-primary mr-1 col-auto"
-      (click)="AddBookButtonClick()"
-    >
+    <button *ngIf="ad" class="btn btn-primary mr-1 col-auto" (click)="AddBookButtonClick()">
       Add Book
       <i class="far fa-plus-square"></i>
     </button>
@@ -37,25 +33,12 @@
     <div class="row m-1">
       <form class="col row">
         <h6 class="my-2 mx-2">Search</h6>
-        <input
-          class="form-control col-2"
-          placeholder="title or date"
-          [(ngModel)]="SearchTextTitle"
-          name="SearchTextTitle"
-          (change)="SearchTextTitleChanged()"
-        />
-        <button
-          class="btn btn-primary col-auto"
-          (click)="SearchButtonClick()"
-          [disabled]="!SearchTextTitle"
-        >
+        <input class="form-control col-2" placeholder="title or date" [(ngModel)]="SearchTextTitle"
+          name="SearchTextTitle" (change)="SearchTextTitleChanged()" />
+        <button class="btn btn-primary col-auto" (click)="SearchButtonClick()" [disabled]="!SearchTextTitle">
           Search <i class="fas fa-search"></i>
         </button>
-        <button
-          class="btn btn-danger ml-1"
-          [hidden]="!SearchTextTitle || CanClearT"
-          (click)="SearchClearButtonClick()"
-        >
+        <button class="btn btn-danger ml-1" [hidden]="!SearchTextTitle || CanClearT" (click)="SearchClearButtonClick()">
           X
         </button>
       </form>
@@ -64,25 +47,13 @@
     <div class="row m-1">
       <form class="col row">
         <h6 class="my-2 mx-2">Search</h6>
-        <input
-          class="form-control col-2"
-          placeholder="author"
-          [(ngModel)]="SearchTextAutor"
-          name="SearchTextAutor"
-          (change)="SearchTextAuthorChanged()"
-        />
-        <button
-          class="btn btn-primary col-auto"
-          (click)="SearchAButtonClick()"
-          [disabled]="!SearchTextAutor"
-        >
+        <input class="form-control col-2" placeholder="author" [(ngModel)]="SearchTextAutor" name="SearchTextAutor"
+          (change)="SearchTextAuthorChanged()" />
+        <button class="btn btn-primary col-auto" (click)="SearchAButtonClick()" [disabled]="!SearchTextAutor">
           Search <i class="fas fa-search"></i>
         </button>
-        <button
-          class="btn btn-danger ml-1"
-          [hidden]="!SearchTextAutor || CanClearA"
-          (click)="SearchClearAButtonClick()"
-        >
+        <button class="btn btn-danger ml-1" [hidden]="!SearchTextAutor || CanClearA"
+          (click)="SearchClearAButtonClick()">
           X
         </button>
       </form>
@@ -105,31 +76,19 @@
   </div>
 
   <div *ngIf="UserIsAdmin">
-    <app-book-list-element
-      *ngFor="let book of BooksAll"
-      [hidden]="SearchTextAutor || SearchTextTitle"
-      [ThisBook]="book"
-    >
+    <app-book-list-element *ngFor="let book of BooksAll" [hidden]="Searched"
+      [ThisBook]="book">
     </app-book-list-element>
-    <app-book-list-element
-      *ngFor="let book of BooksFiltered"
-      [hidden]="!SearchTextAutor && !SearchTextTitle"
-      [ThisBook]="book"
-    >
+    <app-book-list-element *ngFor="let book of BooksFiltered" [hidden]="!Searched"
+      [ThisBook]="book">
     </app-book-list-element>
   </div>
   <div *ngIf="!UserIsAdmin">
-    <app-book-rent-element
-      *ngFor="let book of BooksAvailable"
-      [hidden]="SearchTextAutor || SearchTextTitle"
-      [ThisBook]="book"
-    >
+    <app-book-rent-element *ngFor="let book of BooksAvailable" [hidden]="Searched"
+      [ThisBook]="book">
     </app-book-rent-element>
-    <app-book-rent-element
-      *ngFor="let book of BooksFiltered"
-      [hidden]="!SearchTextAutor && !SearchTextTitle"
-      [ThisBook]="book"
-    >
+    <app-book-rent-element *ngFor="let book of BooksFiltered" [hidden]="!Searched"
+      [ThisBook]="book">
     </app-book-rent-element>
   </div>
 </div>

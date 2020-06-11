@@ -53,7 +53,7 @@ export class BookEditComponent implements OnInit {
       this.connection.updateBook(this.ThisBook).subscribe(
         res => {
           console.log("Book updated succesfully");
-          this.router.navigate(['admin/books'])
+          this.router.navigate(['books'])
         }, err => {
           console.log(err);
         })
