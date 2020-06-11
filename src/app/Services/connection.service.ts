@@ -20,28 +20,36 @@ export class AddHeaderInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const clonedRequest = req.clone({
+    var clonedRequest = req.clone({
       headers: req.headers.set(
         "Authorization",
-        "Bearer " + localStorage.getItem("jwt")
+        "Bearer " + localStorage.getItem("jwt"),
       ),
+      withCredentials: true
     });
-    console.log("Request with JWT" + " " + req.url);
+    console.log("Request with JWT" + " " + JSON.stringify(clonedRequest));
     if (localStorage.getItem("jwt") != null) return next.handle(clonedRequest);
     else return next.handle(req);
   }
 }
 
-const baseUrl = "/api";
+const baseUrl = "https://whispering-springs-71622.herokuapp.com/api";
 
-let httpOptions = {
+const httpOptions = {
   headers: new HttpHeaders({
-    "Access-Control-Allow-Origin": "*",
-    //'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    //'Origin':'http://localhost:8085',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Credentials': 'true',
+    "Access-Control-Allow-Headers": "Cache-Control, Authorization, Content-Type",
+    
+    
+    //"Access-Control-Allow-Origin": "*",
+    //"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    //'Origin':'http://localhost:4200',
     //'Access-Control-Request-Headers':' Accept, X-Requested-With',
     //'Access-Control-Allow-Credentials': 'true',
-    //'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, token',
+    //'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Headers'
   }),
 };
 
