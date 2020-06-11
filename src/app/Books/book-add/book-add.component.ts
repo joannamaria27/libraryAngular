@@ -47,7 +47,7 @@ export class BookAddComponent implements OnInit {
       this.connection.addBook(this.NewBook).subscribe(
         res => {
           console.log("Books added");
-          this.router.navigate(['admin/books']);
+          this.router.navigate(["books"]);
         },
         err => { console.log(err); })
     }
